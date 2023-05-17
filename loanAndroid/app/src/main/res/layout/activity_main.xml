@@ -4,12 +4,11 @@
     android:orientation="vertical"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <androidx.viewpager.widget.ViewPager
+    <androidx.viewpager2.widget.ViewPager2
         android:id="@+id/vp_content"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="1"
-        android:background="@color/common_title_bg" />
+        android:layout_weight="1" />
 
     <View
         android:layout_width="match_parent"
@@ -20,7 +19,6 @@
         android:id="@+id/tabl_navigation"
         android:layout_width="match_parent"
         android:layout_height="55dp"
-        android:layout_alignParentBottom="true"
         app:tabIndicatorColor="#fff"
       />
 

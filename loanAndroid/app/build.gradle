@@ -10,8 +10,8 @@ android {
     buildToolsVersion "23.0.3"
 
     defaultConfig {
-//        applicationId "com.prettyant.loan_chenyu"
-        applicationId "com.prettyant.loan_zhangsan"
+        applicationId "com.prettyant.loan"
+//        applicationId "com.prettyant.loan_zhangsan"
 //        applicationId "com.prettyant.loan_lisi"
         minSdkVersion 28
         targetSdkVersion 33

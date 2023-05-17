@@ -49,6 +49,7 @@ public class FragmentTabBusiness extends BaseFragment implements BusinessTypeAda
     private LinearLayout                 ll_total;
     private ApplyPresenter               applyPresenter;
     private String                       years;
+    private int                          checkedRadioButtonId;
 
     @Override
     public int getContentView() {
@@ -89,6 +90,7 @@ public class FragmentTabBusiness extends BaseFragment implements BusinessTypeAda
         btn_submit = (Button) $(R.id.btn_submit);
         //本息总额
         ll_total = (LinearLayout) $(R.id.ll_total);
+        ll_total.setVisibility(View.GONE);
     }
 
     @Override
@@ -132,9 +134,9 @@ public class FragmentTabBusiness extends BaseFragment implements BusinessTypeAda
     @Override
     public void onClick(View v) {
         BusinessInfo businessInfo = new BusinessInfo();
-        String username = tv_username.getText().toString();
-        String businessName = tv_choose.getText().toString();
-        String amount = et_amout.getText().toString();
+        String       username     = tv_username.getText().toString();
+        String       businessName = tv_choose.getText().toString();
+        String       amount       = et_amout.getText().toString();
         businessInfo.setUsername(username);
         businessInfo.setBusinessName(businessName);
         businessInfo.setDuringTime(years);
@@ -173,6 +175,7 @@ public class FragmentTabBusiness extends BaseFragment implements BusinessTypeAda
 
     /**
      * 非空提交校验
+     *
      * @param businessName
      * @param amount
      * @return
@@ -241,12 +244,12 @@ public class FragmentTabBusiness extends BaseFragment implements BusinessTypeAda
     @Override
     public void getRateSuccess(BusinessInfo businessInfo) {
         float  rate       = businessInfo.getRate();
-        String result     = String.format("%.2f",rate * 100);
+        String result     = String.format("%.2f", rate * 100);
         String amoutS     = et_amout.getText().toString();
         float  amoutF     = Float.parseFloat(amoutS);
         float  totalMoney = (rate + 1) * amoutF;
         tv_rate.setText(result);
-        tv_total.setText(String.format("%.2f",totalMoney));
+        tv_total.setText(String.format("%.2f", totalMoney));
         ll_total.setVisibility(View.VISIBLE);
     }
 
@@ -278,10 +281,8 @@ public class FragmentTabBusiness extends BaseFragment implements BusinessTypeAda
             @Override
             public void onSureClickListener(View view, AlertDialog dialog) {
                 tv_choose.setText("");
-                rb_1.setChecked(false);
-                rb_3.setChecked(false);
-                rb_5.setChecked(false);
-                rb_10.setChecked(false);
+//                ((RadioButton)getActivity().findViewById(checkedRadioButtonId)).setChecked();
+                rg_during.clearCheck();
                 et_amout.setText("");
                 tv_rate.setText("");
                 ll_total.setVisibility(View.GONE);
@@ -307,9 +308,11 @@ public class FragmentTabBusiness extends BaseFragment implements BusinessTypeAda
 
     @Override
     public void onCheckedChanged(RadioGroup radioGroup, int i) {
-        int         checkedRadioButtonId = radioGroup.getCheckedRadioButtonId();
-        RadioButton radioButton          = getActivity().findViewById(checkedRadioButtonId);
-        years = radioButton.getText().toString();
+        checkedRadioButtonId = radioGroup.getCheckedRadioButtonId();
+        RadioButton radioButton = getActivity().findViewById(checkedRadioButtonId);
+        if (radioButton != null && radioButton.isChecked()) {
+            years = radioButton.getText().toString();
+        }
 //        LogUtil.i("你选择了-->>"+radioButton.getText().toString()+"  i -->>"+i);
     }
 }

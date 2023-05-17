@@ -2,6 +2,8 @@ package com.prettyant.loan.ui.main.fragment;
 
 import android.annotation.SuppressLint;
 import android.view.View;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -34,6 +36,8 @@ public class FragmentTabCusFinishedTask extends BaseFragment implements QueryFin
     private SmartRefreshLayout         srl_refresh;
     private int                        index      = 0;
     private boolean                    isRefresh  = true;
+    private LinearLayout ll_empty_ui;
+    private TextView tv_business_empty;
 
     @Override
     public int getContentView() {
@@ -43,7 +47,9 @@ public class FragmentTabCusFinishedTask extends BaseFragment implements QueryFin
     @Override
     public void initView() {
         srl_refresh = (SmartRefreshLayout) $(R.id.srl_refresh);
-        RecyclerView        recyclerView        = (RecyclerView) $(R.id.rv_cus_finish);
+        RecyclerView recyclerView      = (RecyclerView) $(R.id.rv_cus_finish);
+        ll_empty_ui = (LinearLayout) $(R.id.ll_empty_ui);
+        tv_business_empty = (TextView) $(R.id.tv_business_empty);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity(), RecyclerView.VERTICAL, false);
         finishedTaskAdapter = new FinishedTaskAdapter(getActivity(), taskModels);
         recyclerView.setLayoutManager(linearLayoutManager);
@@ -79,15 +85,23 @@ public class FragmentTabCusFinishedTask extends BaseFragment implements QueryFin
         if (isRefresh) {
             taskModels.clear();
         }
-        taskModels.addAll(response.getTaskModels());
+        List<TaskModel> responseTaskModels = response.getTaskModels();
+        taskModels.addAll(responseTaskModels);
         finishedTaskAdapter.notifyDataSetChanged();
         srl_refresh.finishRefresh();
         srl_refresh.finishLoadMore();
+        if (taskModels.isEmpty()) {
+            ll_empty_ui.setVisibility(View.VISIBLE);
+        } else {
+            ll_empty_ui.setVisibility(View.GONE);
+        }
     }
 
     @Override
     public void queryFinishedTaskFail(String message) {
         Toast.makeText(getActivity(), message, Toast.LENGTH_SHORT).show();
+        srl_refresh.finishRefresh();
+        srl_refresh.finishLoadMore();
     }
 
     @Override

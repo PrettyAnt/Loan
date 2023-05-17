@@ -9,5 +9,5 @@ package com.prettyant.loan.cons;
  * describle :
  */
 public class ContantFields {
-    public static String username;
+    public static String username="";
 }

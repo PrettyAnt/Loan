@@ -3,6 +3,7 @@ package com.prettyant.loan.ui.detail;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -34,6 +35,7 @@ public class DetailActivity extends BaseActivity implements QueryHistoryMvpView,
     private BusinessDetailAdatper businessDetailAdatper;
     private SmartRefreshLayout srl_refresh;
     private String processInstanceId;
+    private ImageView iv_back;
 
     @Override
     public int getContentView() {
@@ -42,13 +44,13 @@ public class DetailActivity extends BaseActivity implements QueryHistoryMvpView,
 
     @Override
     public void initView() {
+        iv_back = (ImageView) $(R.id.iv_back);
         srl_refresh = (SmartRefreshLayout) $(R.id.srl_refresh);
         RecyclerView       recyclerView = (RecyclerView) $(R.id.rv_detail);
         LinearLayoutManager   linearLayoutManager   = new LinearLayoutManager(this, RecyclerView.VERTICAL, false);
         businessDetailAdatper = new BusinessDetailAdatper(this,flowPathModels);
         recyclerView.setLayoutManager(linearLayoutManager);
         recyclerView.setAdapter(businessDetailAdatper);
-        srl_refresh.setOnRefreshListener(this);
     }
 
     @Override
@@ -58,7 +60,8 @@ public class DetailActivity extends BaseActivity implements QueryHistoryMvpView,
 
     @Override
     public void initClick() {
-
+        iv_back.setOnClickListener(this);
+        srl_refresh.setOnRefreshListener(this);
     }
 
     @Override
@@ -68,6 +71,13 @@ public class DetailActivity extends BaseActivity implements QueryHistoryMvpView,
         queryHistoryPresenter = new QueryHistoryPresenter(this);
         queryHistoryPresenter.attachView(this);
         queryHistoryPresenter.queryHistory(ContantFields.username, processInstanceId);
+    }
+
+    @Override
+    public void onClick(View v) {
+        if (v.getId() == R.id.iv_back) {
+            finish();
+        }
     }
 
     @Override

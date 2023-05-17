@@ -6,6 +6,12 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
+    <style name="AppTheme_Dark" parent="Theme.AppCompat.Light">
+        <item name="colorPrimary">@color/colorBlack_1</item>
+        <item name="colorPrimaryDark">@color/colorBlack_1</item>
+        <item name="colorAccent">@color/colorBlack_1</item>
+    </style>
+
     <!-- Loding_dialog样式Start -->
     <style name="Dialog_bocop">
         <item name="android:windowBackground">@color/bocop_dialog_bg</item>

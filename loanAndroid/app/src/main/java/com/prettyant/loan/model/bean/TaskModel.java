@@ -30,6 +30,11 @@ public class TaskModel {
      */
     private String description;
 
+    /**
+     * 是否需要审核判断
+     */
+    private boolean needJudge;
+
     public String getAssignee() {
         return assignee;
     }
@@ -76,6 +81,14 @@ public class TaskModel {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public boolean isNeedJudge() {
+        return needJudge;
+    }
+
+    public void setNeedJudge(boolean needJudge) {
+        this.needJudge = needJudge;
     }
 
     @Override

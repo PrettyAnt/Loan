@@ -26,6 +26,7 @@ public class WillDealTaskHolder extends RecyclerView.ViewHolder implements View.
     public  TextView                              tv_taskid;
     public  TextView                              tv_taskname;
     public  TextView                             tv_createtime;
+    public  LinearLayout                             ll_currenttask_message;
     private CurrentTaskAdapter.ItemClickListener itemClickListener;
 
     public WillDealTaskHolder(@NonNull View itemView, CurrentTaskAdapter.ItemClickListener itemClickListener) {
@@ -38,6 +39,7 @@ public class WillDealTaskHolder extends RecyclerView.ViewHolder implements View.
         tv_taskname = itemView.findViewById(R.id.tv_taskname);
         tv_createtime = itemView.findViewById(R.id.tv_createtime);
         tv_describle = itemView.findViewById(R.id.tv_describle);
+        ll_currenttask_message = itemView.findViewById(R.id.ll_currenttask_message);
         ll_dealtask_item.setOnClickListener(this);
     }
 

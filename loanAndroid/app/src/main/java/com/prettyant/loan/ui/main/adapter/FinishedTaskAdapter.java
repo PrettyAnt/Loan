@@ -25,8 +25,8 @@ import java.util.List;
  * describle :
  */
 public class FinishedTaskAdapter extends RecyclerView.Adapter<FinishedTaskHolder> {
-    private Activity          activity;
-    private List<TaskModel>   taskModels;
+    private Activity        activity;
+    private List<TaskModel> taskModels;
 
     public FinishedTaskAdapter(Activity activity, List<TaskModel> taskModels) {
         this.activity = activity;
@@ -42,27 +42,27 @@ public class FinishedTaskAdapter extends RecyclerView.Adapter<FinishedTaskHolder
 
     @Override
     public void onBindViewHolder(@NonNull FinishedTaskHolder holder, int position) {
-        TextView     tv_processInstanceId = holder.tv_processInstanceId;
-        TextView     tv_assignee      = holder.tv_assignee;
-        TextView     tv_taskid        = holder.tv_taskid;
-        TextView     tv_taskname      = holder.tv_taskname;
-        TextView     tv_createtime    = holder.tv_createtime;
-        TextView     tv_describle         = holder.tv_describle;
+        TextView tv_processInstanceId = holder.tv_processInstanceId;
+        TextView tv_assignee          = holder.tv_assignee;
+        TextView tv_taskid            = holder.tv_taskid;
+        TextView tv_taskname          = holder.tv_taskname;
+        TextView tv_createtime        = holder.tv_createtime;
+        TextView tv_describle         = holder.tv_describle;
 
-        TaskModel    taskModel        = taskModels.get(position);
-        String       processInstanceId = taskModel.getProcessInstanceId();
-        String       assignee         = taskModel.getAssignee();
-        String       taskId           = taskModel.getTaskId();
-        String       name             = taskModel.getName();
-        String       createTime       = taskModel.getCreateTime();
-        String       description = taskModel.getDescription();
+        TaskModel taskModel         = taskModels.get(position);
+        String    processInstanceId = taskModel.getProcessInstanceId();
+        String    assignee          = taskModel.getAssignee();
+        String    taskId            = taskModel.getTaskId();
+        String    name              = taskModel.getName();
+        String    createTime        = taskModel.getCreateTime();
+        String    description       = taskModel.getDescription();
 
         tv_processInstanceId.setText(processInstanceId);
         tv_assignee.setText(assignee);
         tv_taskid.setText(taskId);
         tv_taskname.setText(name);
         tv_createtime.setText(createTime);
-        tv_describle.setText(description);
+        tv_describle.setText(TextUtils.isEmpty(description) ? "无" : description);
     }
 
     @Override

@@ -18,25 +18,25 @@ public class FragmentTabMy extends BaseFragment {
 
     LinearLayout ll_head;
     private TextView tv_username;
-    private TextView tv_logout;
+    private LinearLayout ll_logout;
 
     @Override
     public int getContentView() {
-        return R.layout.fragment_3;
+        return R.layout.fragment_my;
     }
 
     @Override
     public void initView() {
         initTitleBar("", "我的", "", 0, this);
         ll_head = (LinearLayout) $(R.id.ll_head);
-        ll_head.setBackgroundColor(getResources().getColor(R.color.common_title_bg));
+//        ll_head.setBackgroundColor(getResources().getColor(R.color.common_title_bg));
         tv_username = (TextView) $(R.id.tv_username);
-        tv_logout = (TextView) $(R.id.tv_logout);
+        ll_logout = (LinearLayout) $(R.id.ll_logout);
     }
 
     @Override
     public void initClick() {
-        tv_logout.setOnClickListener(this);
+        ll_logout.setOnClickListener(this);
     }
 
     @Override
@@ -47,7 +47,7 @@ public class FragmentTabMy extends BaseFragment {
 
     @Override
     public void onClick(View v) {
-        if (v.getId() == R.id.tv_logout) {
+        if (v.getId() == R.id.ll_logout) {
             ContantFields.username = "";
             Intent intent = new Intent(getActivity(),LoginActivity.class);
             getActivity().startActivity(intent);

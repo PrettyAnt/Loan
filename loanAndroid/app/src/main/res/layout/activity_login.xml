@@ -2,10 +2,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
-    android:background="#FDFDFE"
+    android:background="#00FDFDFE"
     tools:context="com.prettyant.loan.ui.login.LoginActivity">
-
     <include layout="@layout/common_title_bar"
         android:visibility="gone"/>
     <ImageView
@@ -115,5 +115,17 @@
             android:textSize="18sp" />
 
     </LinearLayout>
-
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <TextView
+            android:id="@+id/tv_envri"
+            android:visibility="gone"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="测试环境"
+            android:layout_alignParentEnd="true"
+            android:layout_marginEnd="40dp"
+            android:layout_marginTop="20dp"/>
+    </RelativeLayout>
 </LinearLayout>

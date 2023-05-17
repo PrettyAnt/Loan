@@ -3,6 +3,8 @@ package com.prettyant.loan.ui.main.fragment;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.view.View;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -35,7 +37,9 @@ public class FragmentTabBusinessQuery extends BaseFragment implements UserQueryM
     private int                  index = 0;//当前索引
     private SmartRefreshLayout   srl_refresh;
 
-    private int state = 1;
+    private int state = 1;//1：刷新标识   2 加载标识
+    private LinearLayout ll_empty_ui;
+    private TextView tv_business_empty;
 
     @Override
     public int getContentView() {
@@ -46,6 +50,8 @@ public class FragmentTabBusinessQuery extends BaseFragment implements UserQueryM
     public void initView() {
         recyclerView = (RecyclerView) $(R.id.rv_business_query);
         srl_refresh = (SmartRefreshLayout) $(R.id.srl_refresh);
+        ll_empty_ui = (LinearLayout) $(R.id.ll_empty_ui);
+        tv_business_empty = (TextView) $(R.id.tv_business_empty);
         srl_refresh.setOnRefreshLoadMoreListener(this);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity(), RecyclerView.VERTICAL, false);
         businessQueryAdapter = new BusinessQueryAdapter(getActivity(), businessInfos);
@@ -93,6 +99,11 @@ public class FragmentTabBusinessQuery extends BaseFragment implements UserQueryM
 //        srl_refresh.finishRefreshWithNoMoreData();
         srl_refresh.finishRefresh();
         srl_refresh.finishLoadMore();
+        if (businessInfos.isEmpty()) {
+            ll_empty_ui.setVisibility(View.VISIBLE);
+        } else {
+            ll_empty_ui.setVisibility(View.GONE);
+        }
 
     }
 

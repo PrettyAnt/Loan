@@ -3,7 +3,6 @@ package com.prettyant.loan.view.pop;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.AlertDialog;
-import android.content.Context;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.Handler;
 import android.os.Looper;
@@ -12,9 +11,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
-import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.PopupWindow;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
@@ -39,6 +39,9 @@ public class CusApprovePopWindow implements View.OnClickListener {
     private        SubmitClickListener submitClickListener;
     private        RadioButton         rb_approve;
     private        RadioButton         rb_unapprove;
+    private ImageView iv_close;
+    private boolean needJudge;
+    private LinearLayout ll_judge;
 
 
     public static CusApprovePopWindow getInstance() {
@@ -69,9 +72,10 @@ public class CusApprovePopWindow implements View.OnClickListener {
      *      
      */
     @SuppressLint("WrongConstant")
-    public void approvePop(View view, Activity activity, SubmitClickListener submitClickListener) {
+    public void approvePop(View view, Activity activity, SubmitClickListener submitClickListener, boolean needJudge) {
         this.activity = activity;
         this.submitClickListener = submitClickListener;
+        this.needJudge = needJudge;
         float backgroundAlpha = 0.5f;
         if (popupWindow != null && popupWindow.isShowing()) {
             popupWindow.dismiss();
@@ -110,14 +114,7 @@ public class CusApprovePopWindow implements View.OnClickListener {
     }
 
     private void initData() {
-        handler.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                et_cus_message.requestFocus();
-                InputMethodManager im = (InputMethodManager) et_cus_message.getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
-                im.showSoftInput(et_cus_message,InputMethodManager.SHOW_FORCED);
-            }
-        }, 1000);
+        ll_judge.setVisibility(needJudge?View.VISIBLE:View.GONE);
     }
 
     private Handler handler = new Handler(Looper.getMainLooper());
@@ -128,23 +125,14 @@ public class CusApprovePopWindow implements View.OnClickListener {
      * @param inflate
      */
     private void initView(Activity activity, View inflate) {
+        iv_close = inflate.findViewById(R.id.iv_close);
         et_cus_message = inflate.findViewById(R.id.et_cus_message);
-        RadioGroup rg_cus_approve = inflate.findViewById(R.id.rg_cus_approve);
+        ll_judge = inflate.findViewById(R.id.ll_judge);
         rb_approve = inflate.findViewById(R.id.rb_approve);
         rb_unapprove = inflate.findViewById(R.id.rb_unapprove);
-        rg_cus_approve.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(RadioGroup radioGroup, int i) {
-                int checkedRadioButtonId = radioGroup.getCheckedRadioButtonId();
-                if (checkedRadioButtonId == R.id.rb_approve) {
-                    //同意
-                } else {
-
-                }
-            }
-        });
         btn_submit = inflate.findViewById(R.id.btn_submit);
         btn_submit.setOnClickListener(this);
+        iv_close.setOnClickListener(this);
     }
 
     /**
@@ -174,6 +162,11 @@ public class CusApprovePopWindow implements View.OnClickListener {
     public void onClick(View view) {
         if (view.getId() == R.id.btn_submit) {
             String message = et_cus_message.getText().toString();
+            if (!needJudge) {
+                submitClickListener.onSubmitClickListener(message,true);
+                hideBottomPop();
+                return;
+            }
             if (!rb_approve.isChecked() && !rb_unapprove.isChecked()) {
                 CommDialog.getInstance().commDialog(activity, "温馨提示", "亲,请选择是否通过", null, "确定", new CommDialog.DialogClickListener() {
                     @Override
@@ -190,6 +183,8 @@ public class CusApprovePopWindow implements View.OnClickListener {
             }
             boolean approve = rb_approve.isChecked();
             submitClickListener.onSubmitClickListener(message,approve);
+            hideBottomPop();
+        } else if (view.getId() == R.id.iv_close) {
             hideBottomPop();
         }
     }

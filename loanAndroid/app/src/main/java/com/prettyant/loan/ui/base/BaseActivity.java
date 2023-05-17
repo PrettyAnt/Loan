@@ -3,16 +3,23 @@ package com.prettyant.loan.ui.base;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+
 import androidx.fragment.app.FragmentActivity;
 
 import android.text.TextUtils;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.prettyant.loan.R;
+import com.prettyant.loan.cons.ContantFields;
+import com.prettyant.loan.view.widget.watermark.WaterMarkView;
+import com.prettyant.loan.view.widget.watermark.WaterMarkViewGroup;
 
 /**
  * Created by chenyu on 2023-05-08
@@ -22,18 +29,31 @@ public abstract class BaseActivity extends FragmentActivity implements View.OnCl
     public Activity context;
 
     public RelativeLayout title_bar;
-    public TextView tv_left, tv_title, tv_right;
-    public ImageView iv_right;
+    public TextView       tv_left, tv_title, tv_right;
+    public ImageView   iv_right;
     public ProgressBar pb;
+    private WaterMarkViewGroup wmvg_name;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(getContentView());
+
+//        setContentView(getContentView());
+        setContentView(R.layout.activity_base);
+        wmvg_name = (WaterMarkViewGroup) findViewById(R.id.wmvg_name);
+        FrameLayout        fl_content = findViewById(R.id.fl_content);
+        fl_content.removeAllViews();
+        View view = getLayoutInflater().inflate(getContentView(), null);
+        fl_content.addView(view);
         context = this;
+        initWaterMark();
         initView();
         initClick();
         initData();
+    }
+
+    public void initWaterMark() {
+        wmvg_name.setParams(ContantFields.username);
     }
 
     /**

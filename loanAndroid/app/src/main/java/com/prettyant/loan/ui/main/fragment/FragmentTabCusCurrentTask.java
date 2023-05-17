@@ -2,7 +2,9 @@ package com.prettyant.loan.ui.main.fragment;
 
 import android.annotation.SuppressLint;
 import android.view.View;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -42,6 +44,9 @@ public class FragmentTabCusCurrentTask extends BaseFragment implements QueryCurr
     private SmartRefreshLayout        srl_refresh;
     private int                       index      = 0;
     private boolean                   isRefresh  = true;
+    private LinearLayout ll_empty_ui;
+    private TextView tv_business_empty;
+    private RecyclerView rv_cus_deal;
 
     @Override
     public int getContentView() {
@@ -52,12 +57,14 @@ public class FragmentTabCusCurrentTask extends BaseFragment implements QueryCurr
     public void initView() {
         rl_title = (RelativeLayout) $(R.id.rl_title);
         srl_refresh = (SmartRefreshLayout) $(R.id.srl_refresh);
-        RecyclerView        rv_cus_deal         = (RecyclerView) $(R.id.rv_cus_deal);
+        ll_empty_ui = (LinearLayout) $(R.id.ll_empty_ui);
+        tv_business_empty = (TextView) $(R.id.tv_business_empty);
+        rv_cus_deal = (RecyclerView) $(R.id.rv_cus_deal);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity(), RecyclerView.VERTICAL, false);
         currentTaskAdapter = new CurrentTaskAdapter(getActivity(), taskModels);
         rv_cus_deal.setLayoutManager(linearLayoutManager);
         rv_cus_deal.setAdapter(currentTaskAdapter);
-
+        ll_empty_ui.setVisibility(View.GONE);
     }
 
     @Override
@@ -93,15 +100,23 @@ public class FragmentTabCusCurrentTask extends BaseFragment implements QueryCurr
         if (isRefresh) {
             taskModels.clear();
         }
-        taskModels.addAll(response.getTaskModels());
+        List<TaskModel> responseTaskModels = response.getTaskModels();
+        taskModels.addAll(responseTaskModels);
         currentTaskAdapter.notifyDataSetChanged();
         srl_refresh.finishRefresh();
         srl_refresh.finishLoadMore();
+        if (taskModels.isEmpty()) {
+            ll_empty_ui.setVisibility(View.VISIBLE);
+        } else {
+            ll_empty_ui.setVisibility(View.GONE);
+        }
     }
 
     @Override
     public void queryCurrentTaskFail(String message) {
         Toast.makeText(getActivity(), message, Toast.LENGTH_SHORT).show();
+        srl_refresh.finishRefresh();
+        srl_refresh.finishLoadMore();
     }
 
     @Override
@@ -110,7 +125,7 @@ public class FragmentTabCusCurrentTask extends BaseFragment implements QueryCurr
             //跳转到处理页面
             taskModel = taskModels.get(position);
             System.out.println("taskModel.toString() = " + taskModel.toString());
-            CusApprovePopWindow.getInstance().approvePop(rl_title, getActivity(), this);
+            CusApprovePopWindow.getInstance().approvePop(rl_title, getActivity(), this,taskModel.isNeedJudge());
         }
     }
 

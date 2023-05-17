@@ -71,6 +71,8 @@ public class BusinessQueryAdapter extends RecyclerView.Adapter<BusinessQueryHold
         tv_rate.setText(rateResult);
         if (businessStatus == 1) {
             iv_status.setImageResource(R.drawable.icon_status_ok);
+        } else if (businessStatus == 2) {
+            iv_status.setImageResource(R.drawable.icon_status_unpass);
         } else {
             iv_status.setImageResource(R.drawable.icon_status_deal);
         }

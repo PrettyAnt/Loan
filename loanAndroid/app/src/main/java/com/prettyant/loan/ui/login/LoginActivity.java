@@ -35,6 +35,7 @@ public class LoginActivity extends BaseActivity implements LoginMvpView, RegistM
     private TextView        regist;
     private RegistPresenter registPresenter;
     private CheckBox        cb_remember;
+    private TextView tv_envri;
 
     @Override
     public int getContentView() {
@@ -43,6 +44,7 @@ public class LoginActivity extends BaseActivity implements LoginMvpView, RegistM
 
     @Override
     public void initView() {
+        setTheme(R.style.AppTheme_Dark);
         initTitleBar("", "登录", "", 0, this);
         title_bar.setBackgroundColor(getResources().getColor(R.color.common_title_bg));
         et_account = (EditText) $(R.id.account);
@@ -50,7 +52,9 @@ public class LoginActivity extends BaseActivity implements LoginMvpView, RegistM
         btn_login = (Button) $(R.id.login);
         regist = (TextView) $(R.id.tv_right);
         cb_remember = (CheckBox) $(R.id.cb_remember);
+        tv_envri = (TextView) $(R.id.tv_envri);
         regist.setVisibility(View.INVISIBLE);
+
     }
 
     @Override
@@ -68,6 +72,7 @@ public class LoginActivity extends BaseActivity implements LoginMvpView, RegistM
         String password = (String) SPUtils.get(this, "password", "");
         et_account.setText(username);
         et_pwd.setText(password);
+
     }
 
     @Override
@@ -137,6 +142,7 @@ public class LoginActivity extends BaseActivity implements LoginMvpView, RegistM
         } else {
             SPUtils.remove(this,"password");
         }
+        initWaterMark();
     }
 
     @Override

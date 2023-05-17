@@ -5,6 +5,7 @@ import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -43,27 +44,32 @@ public class CurrentTaskAdapter extends RecyclerView.Adapter<WillDealTaskHolder>
 
     @Override
     public void onBindViewHolder(@NonNull WillDealTaskHolder holder, int position) {
-        TextView     tv_processInstanceId = holder.tv_processInstanceId;
-        TextView     tv_assignee      = holder.tv_assignee;
-        TextView     tv_taskid        = holder.tv_taskid;
-        TextView     tv_taskname      = holder.tv_taskname;
-        TextView     tv_createtime    = holder.tv_createtime;
-        TextView     tv_describle         = holder.tv_describle;
+        TextView     tv_processInstanceId   = holder.tv_processInstanceId;
+        TextView     tv_assignee            = holder.tv_assignee;
+        TextView     tv_taskid              = holder.tv_taskid;
+        TextView     tv_taskname            = holder.tv_taskname;
+        TextView     tv_createtime          = holder.tv_createtime;
+        TextView     tv_describle           = holder.tv_describle;
+        LinearLayout ll_currenttask_message = holder.ll_currenttask_message;
 
-        TaskModel    taskModel        = taskModels.get(position);
-        String       processInstanceId = taskModel.getProcessInstanceId();
-        String       assignee         = taskModel.getAssignee();
-        String       taskId           = taskModel.getTaskId();
-        String       name             = taskModel.getName();
-        String       createTime       = taskModel.getCreateTime();
-        String       description = taskModel.getDescription();
+        TaskModel taskModel         = taskModels.get(position);
+        String    processInstanceId = taskModel.getProcessInstanceId();
+        String    assignee          = taskModel.getAssignee();
+        String    taskId            = taskModel.getTaskId();
+        String    name              = taskModel.getName();
+        String    createTime        = taskModel.getCreateTime();
+        String    description       = taskModel.getDescription();
 
         tv_processInstanceId.setText(processInstanceId);
         tv_assignee.setText(assignee);
         tv_taskid.setText(taskId);
         tv_taskname.setText(name);
         tv_createtime.setText(createTime);
-        tv_describle.setText(TextUtils.isEmpty(description)?"无":description);
+        ll_currenttask_message.setVisibility(View.GONE);
+        if (!TextUtils.isEmpty(description)) {
+            ll_currenttask_message.setVisibility(View.VISIBLE);
+            tv_describle.setText(TextUtils.isEmpty(description) ? "无" : description);
+        }
     }
 
     @Override
