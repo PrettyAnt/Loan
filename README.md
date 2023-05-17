@@ -7,9 +7,24 @@
 - 个贷中心、风控中心的审核人员可以查看已完成和进行中的任务，可以及时处理进行中的业务。审核不通过的业务超过3次(包括3次)的进行驳回。
 ---
 # 总体架构
+
 ## 服务端:
 采用spring boot作为总体框架，redis缓存用户信息、mybatis负责数据持久化、
 drools负责匹配用户贷款利率、flowable管理工作流、rocketmq转发用户办理业务申请，并引入consul和Gateway。
+### 服务端环境搭建流程,使用Docker容器化部署以下中间件
+- rokcermq-nameserver、rocekermq-broker、rocketmq-console,注意broker.conf地址!
+- redis
+- mysql
+- consul
+### 关于规则引擎
+- 查看pom.xml中的依赖即可
+### 关于流程引擎
+- 下载flowable的flowable-rest.war、flowable-ui.war放在Tomcat的webapps目录下
+- Tomcat->conf->logging.properties设置日志格式java.util.logging.ConsoleHandler.encoding = GBK
+- 启动tomcat服务器，打开网页`http://localhost:8080/flowable-ui/idm/#/login`,第一次会比较慢。admin-test登录即可。
+- 可以将本项目中的 *.bpmn20.xml文件导入查看效果
+- pom.xml需要进行相关的依赖
+
 #### 流程图
 ![image](img/flowable.png)
 
