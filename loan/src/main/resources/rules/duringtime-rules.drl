@@ -1,0 +1,39 @@
+package rules
+//同一个报下的drl可以互相访问
+//下单间隔匹配引擎
+
+import com.prettyant.bean.BusinessInfo
+
+rule "duringtime_1"
+//    no-loop true //防止死循环
+    when
+            $business:BusinessInfo(duringTime=="1年")
+        then
+            $business.setRate($business.getRate()+0.04f);
+            System.out.println("触发了 duringtime_1 规则 - (1年),利率 4%");
+    end
+
+rule "duringtime_2"
+    when
+        $business:BusinessInfo(duringTime=="3年")
+    then
+        $business.setRate($business.getRate()+0.03f);
+        System.out.println("触发了 duringtime_2 规则 - (3年),利率 3%");
+    end
+
+rule "duringtime_3"
+    when
+            $business:BusinessInfo(duringTime=="5年")
+        then
+            $business.setRate($business.getRate()+0.02f);
+            System.out.println("触发了 duringtime_3 规则 - (5年),利率 2%");
+end
+
+rule "duringtime_4"
+//    no-loop true //防止死循环
+    when
+            $business:BusinessInfo(duringTime=="10年")
+        then
+            $business.setRate($business.getRate()+0.01f);
+            System.out.println("触发了 duringtime_4 规则 - (10年),利率 1%");
+end

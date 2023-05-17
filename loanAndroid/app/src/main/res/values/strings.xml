@@ -1,0 +1,27 @@
+<resources>
+    <string name="app_name">个人信贷</string>
+    <string name="title_activity_login">登录</string>
+
+    <!-- Strings related to login -->
+    <string name="prompt_account">请输入用户名</string>
+    <string name="prompt_password">请输入密码</string>
+    <string name="action_sign_in">登录</string>
+
+    <string name="pull_to_refresh_pull_label">下拉刷新</string>
+    <string name="pull_to_refresh_release_label">松开刷新</string>
+    <string name="pull_to_refresh_refreshing_label">正在刷新\u2026</string>
+    <string name="pull_to_refresh_footer_release_label">松开加载更多</string>
+    <string name="pull_to_refresh_footer_pull_label">上拉加载更多</string>
+    <string name="pull_to_refresh_footer_refreshing_label">加载中\u2026</string>
+    <string name="rules"><![CDATA[<<xxx银行关于的xxx条款>>]]></string>
+
+    <!--下拉刷新-->
+    <string name="header_hint_level_release">松开立即刷新</string>
+    <string name="header_hint_refreshing">正在刷新数据中…</string>
+    <string name="header_hint_level_down">下拉可以刷新</string>
+    <string name="footer_hint_loading">正在加载</string>
+    <string name="xlistview_footer_hint_normal">上拉加载更多</string>
+    <string name="xlistview_footer_hint_ready">松开加载更多</string>
+    <string name="xlistview_footer_hint_loading">正在加载</string>
+    <string name="xlistview_footer_hint_complete">已经全部加载完毕</string>
+</resources>

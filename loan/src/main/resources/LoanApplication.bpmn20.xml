@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:flowable="http://flowable.org/bpmn" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:omgdc="http://www.omg.org/spec/DD/20100524/DC" xmlns:omgdi="http://www.omg.org/spec/DD/20100524/DI" typeLanguage="http://www.w3.org/2001/XMLSchema" expressionLanguage="http://www.w3.org/1999/XPath" targetNamespace="http://www.flowable.org/processdef" exporter="Flowable Open Source Modeler" exporterVersion="6.8.0">
+  <process id="LoanApplication" name="LoanApplication" isExecutable="true">
+    <documentation>贷款流程审批plus v1.0</documentation>
+    <startEvent id="startEvent1" name="开始"></startEvent>
+    <userTask id="sid-7684B7BE-DBBE-4EB6-A329-A81C460C0514" name="客户申请" flowable:assignee="user1">
+    </userTask>
+    <userTask id="sid-9A8543E1-F2CC-4912-9EB8-B74CE1CBC403" name="业务受理(个贷)" flowable:assignee="user2">
+    </userTask>
+    <userTask id="sid-3F4E63AC-616D-4169-BEE6-47D5927D7D3A" name="合规性、完整性、真实性审核(个贷)" flowable:assignee="user2">
+    </userTask>
+    <exclusiveGateway id="sid-5418BFEC-360C-4C87-AC7B-2E205BAB6C22" name="判断电话/现场调查是否通过"></exclusiveGateway>
+    <exclusiveGateway id="sid-1C165647-020F-4C26-B56A-70100E233BC1" name="贷款审核是否通过"></exclusiveGateway>
+    <userTask id="sid-50DE5657-5F73-44A1-9F93-6D416F699BD7" name="信贷审批(风控)" flowable:assignee="user3">
+    </userTask>
+    <exclusiveGateway id="sid-727589C9-C9A8-48EC-8F16-28B25983C84D" name="贷款审批是否通过"></exclusiveGateway>
+    <userTask id="sid-53F554E2-9629-4C47-A5B1-D7BF4227CA41" name="电话或现场调查(个贷)" flowable:assignee="user2">
+    </userTask>
+    <sequenceFlow id="sid-2EEC48A2-AB5C-41A2-8E1F-D13B14B9F753" sourceRef="startEvent1" targetRef="sid-7684B7BE-DBBE-4EB6-A329-A81C460C0514"></sequenceFlow>
+    <sequenceFlow id="sid-4C402265-C8CB-473A-96DD-A82C4943F55D" sourceRef="sid-9A8543E1-F2CC-4912-9EB8-B74CE1CBC403" targetRef="sid-53F554E2-9629-4C47-A5B1-D7BF4227CA41"></sequenceFlow>
+    <sequenceFlow id="sid-F7B4A543-DF93-4BC6-8939-1DBE5016CA0A" sourceRef="sid-3F4E63AC-616D-4169-BEE6-47D5927D7D3A" targetRef="sid-1C165647-020F-4C26-B56A-70100E233BC1"></sequenceFlow>
+    <serviceTask id="sid-6208502B-447B-4068-82B1-A7ECC0585389" name="签订合同" flowable:class="com.prettyant.action.SignContract"></serviceTask>
+    <serviceTask id="sid-F31BC443-7E73-46E8-98F6-DC0BDEB05AF4" name="贷款发放" flowable:class="com.prettyant.action.LoanOrigination"></serviceTask>
+    <serviceTask id="sid-D43D2FB3-B5E5-4D13-8711-697689E4379C" name="档案管理" flowable:class="com.prettyant.action.FileManager"></serviceTask>
+    <serviceTask id="sid-7B48EF35-1193-4844-BECB-AD74C438AD04" name="贷后管理" flowable:class="com.prettyant.action.LoanManager"></serviceTask>
+    <endEvent id="sid-BE50AB9A-BCB7-4C9A-A2CD-C2146D47A6ED" name="结束1"></endEvent>
+    <endEvent id="sid-D365545C-2E97-4631-8DF3-201E19CDDBBF" name="结束2"></endEvent>
+    <sequenceFlow id="sid-2386F16D-79FD-41D0-B3AA-D2D894BF713B" sourceRef="sid-6208502B-447B-4068-82B1-A7ECC0585389" targetRef="sid-F31BC443-7E73-46E8-98F6-DC0BDEB05AF4"></sequenceFlow>
+    <sequenceFlow id="sid-09779DDD-0489-4ED4-A187-723FA59614CB" sourceRef="sid-D43D2FB3-B5E5-4D13-8711-697689E4379C" targetRef="sid-BE50AB9A-BCB7-4C9A-A2CD-C2146D47A6ED"></sequenceFlow>
+    <sequenceFlow id="sid-4D406E3D-4FF9-4B0A-9E06-EC382EF891F0" sourceRef="sid-7B48EF35-1193-4844-BECB-AD74C438AD04" targetRef="sid-D365545C-2E97-4631-8DF3-201E19CDDBBF"></sequenceFlow>
+    <sequenceFlow id="sid-159FCDB8-1B36-4642-8958-15FA740600CF" sourceRef="sid-50DE5657-5F73-44A1-9F93-6D416F699BD7" targetRef="sid-727589C9-C9A8-48EC-8F16-28B25983C84D"></sequenceFlow>
+    <sequenceFlow id="sid-8D382316-F7AB-4E36-B9D5-C71B6B736428" sourceRef="sid-53F554E2-9629-4C47-A5B1-D7BF4227CA41" targetRef="sid-5418BFEC-360C-4C87-AC7B-2E205BAB6C22"></sequenceFlow>
+    <sequenceFlow id="sid-4129EB90-A306-40E6-8CD1-996B2D6F8C61" sourceRef="sid-F31BC443-7E73-46E8-98F6-DC0BDEB05AF4" targetRef="sid-D43D2FB3-B5E5-4D13-8711-697689E4379C"></sequenceFlow>
+    <sequenceFlow id="sid-BDC3CE27-3F91-4FE4-AD74-8416CCDE2559" sourceRef="sid-F31BC443-7E73-46E8-98F6-DC0BDEB05AF4" targetRef="sid-7B48EF35-1193-4844-BECB-AD74C438AD04"></sequenceFlow>
+    <sequenceFlow id="sid-A1C63306-D75C-4A23-98DF-3496820C62EC" sourceRef="sid-7684B7BE-DBBE-4EB6-A329-A81C460C0514" targetRef="sid-9A8543E1-F2CC-4912-9EB8-B74CE1CBC403"></sequenceFlow>
+    <sequenceFlow id="sid-4ED1247D-651E-462B-98D7-047DC8D1E23C" name="审核通过" sourceRef="sid-1C165647-020F-4C26-B56A-70100E233BC1" targetRef="sid-50DE5657-5F73-44A1-9F93-6D416F699BD7">
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${approved}]]></conditionExpression>
+    </sequenceFlow>
+    <sequenceFlow id="sid-611827EF-F1FC-4B03-B8EA-36C90CDB84E3" name="否" sourceRef="sid-1C165647-020F-4C26-B56A-70100E233BC1" targetRef="sid-53F554E2-9629-4C47-A5B1-D7BF4227CA41">
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${!approved}]]></conditionExpression>
+    </sequenceFlow>
+    <sequenceFlow id="sid-58554825-6A4F-4174-9EC4-666D0CA44E6C" name="是" sourceRef="sid-727589C9-C9A8-48EC-8F16-28B25983C84D" targetRef="sid-6208502B-447B-4068-82B1-A7ECC0585389">
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${approved}]]></conditionExpression>
+    </sequenceFlow>
+    <sequenceFlow id="sid-0A0CF686-7D51-439A-AE66-1064D0163CF2" name="否" sourceRef="sid-727589C9-C9A8-48EC-8F16-28B25983C84D" targetRef="sid-53F554E2-9629-4C47-A5B1-D7BF4227CA41">
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${!approved}]]></conditionExpression>
+    </sequenceFlow>
+    <sequenceFlow id="sid-943826C9-3755-49B7-9E88-56DEADF40159" name="初步调查通过" sourceRef="sid-5418BFEC-360C-4C87-AC7B-2E205BAB6C22" targetRef="sid-3F4E63AC-616D-4169-BEE6-47D5927D7D3A">
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${approved}]]></conditionExpression>
+    </sequenceFlow>
+    <sequenceFlow id="sid-33BF0F8B-0755-408A-9C1C-5A090EB85785" name="否" sourceRef="sid-5418BFEC-360C-4C87-AC7B-2E205BAB6C22" targetRef="sid-7684B7BE-DBBE-4EB6-A329-A81C460C0514">
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${!approved}]]></conditionExpression>
+    </sequenceFlow>
+  </process>
+</definitions>

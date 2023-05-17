@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimaryDark">#2D6EFA</color>
+    <color name="colorPrimary">#729DFA</color>
+    <color name="colorAccent">#729DFA</color>
+    <color name="colorBlack">#000000</color>
+    <color name="colorBlack_1">#686767</color>
+
+
+    <color name="common_title_bg">#2D6EFA</color>
+    <color name="common_title_bg_press">#0551F4</color>
+    <color name="status_bar">#000000</color>
+    <color name="common_ui_bg">#f9f9f9</color>
+    <!-- hint color-->
+    <color name="hint_color">#999999</color>
+
+    <color name="tab_text">#A2A2A2</color>
+    <color name="tab_text_press">#2D6EFA</color>
+
+    <drawable name="text_press">#999999</drawable>
+    <drawable name="image_press">#50000000</drawable>
+    <color name="white">#FFFFFF</color>
+    <color name="gray_e">#EEEEEE</color>
+    <color name="gray_c">#cccccc</color>
+    <color name="gray_9">#999999</color>
+
+    <color name="bocop_dialog_bg">#30000000</color>
+</resources>

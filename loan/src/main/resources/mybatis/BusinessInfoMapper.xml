@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.prettyant.dao.BusinessInfoDao">
+    <insert id="addBusinessInfo" parameterType="com.prettyant.bean.BusinessInfo">
+        insert into businessInfo(processInstanceId, username, businessName, rate, amount, duringTime,businessStatus)
+        values (#{processInstanceId}, #{username}, #{businessName}, #{rate}, #{amount}, #{duringTime},#{businessStatus})
+    </insert>
+    <delete id="deleteBusinessInfoById">
+        delete
+        from businessInfo
+        where processInstanceId = #{processInstanceId}
+    </delete>
+    <update id="updateBusinessStatusById">
+        update businessInfo
+        set businessStatus=#{businessStatus}
+        where processInstanceId = #{processInstanceId}
+    </update>
+
+    <select id="queryBusinessInfoById" parameterType="String" resultType="com.prettyant.bean.BusinessInfo">
+        select *
+        from businessInfo
+        where processInstanceId = #{processInstanceId}
+    </select>
+    <select id="queryBusinessInfoByName" parameterType="String" resultType="com.prettyant.bean.BusinessInfo">
+        select *
+        from businessInfo
+        where username = #{username}
+    </select>
+
+
+</mapper>

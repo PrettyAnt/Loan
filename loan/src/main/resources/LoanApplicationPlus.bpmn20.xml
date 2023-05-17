@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+             xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:flowable="http://flowable.org/bpmn"
+             xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI"
+             xmlns:omgdc="http://www.omg.org/spec/DD/20100524/DC" xmlns:omgdi="http://www.omg.org/spec/DD/20100524/DI"
+             typeLanguage="http://www.w3.org/2001/XMLSchema" expressionLanguage="http://www.w3.org/1999/XPath"
+             targetNamespace="http://www.flowable.org/processdef" exporter="Flowable Open Source Modeler"
+             exporterVersion="6.8.0">
+    <process id="LoanApplication" name="LoanApplication" isExecutable="true">
+        <documentation>贷款流程审批plus v1.0</documentation>
+        <startEvent id="startEvent1" name="提交"/>
+        <serviceTask id="approveTask" name="客户申请" flowable:class="com.prettyant.action.UserApply"/>
+
+        <userTask id="businessService" name="业务受理(个贷)" flowable:assignee="${assignee0}"/>
+        <userTask id="businessApproval" name="合规性、完整性、真实性审核(个贷)" flowable:assignee="${assignee0}"/>
+
+        <exclusiveGateway id="passSurvey" name="判断电话/现场调查是否通过"/>
+        <exclusiveGateway id="passCreditReview" name="贷款审核是否通过"/>
+
+        <userTask id="creditApproval" name="信贷审批(风控)" flowable:assignee="${assignee1}"/>
+
+        <exclusiveGateway id="passCreditApproval" name="信贷审批是否通过"/>
+
+        <userTask id="fieldSurvey" name="电话或现场调查(个贷)" flowable:assignee="${assignee0}"/>
+
+        <sequenceFlow sourceRef="startEvent1" targetRef="approveTask"/>
+        <sequenceFlow sourceRef="businessService" targetRef="fieldSurvey"/>
+        <sequenceFlow sourceRef="businessApproval" targetRef="passCreditReview"/>
+
+        <serviceTask id="signContract" name="签订合同" flowable:class="com.prettyant.action.SignContract"/>
+        <serviceTask id="loanOrigination" name="贷款发放" flowable:class="com.prettyant.action.LoanOrigination"/>
+        <serviceTask id="resultManage" name="档案和贷后管理" flowable:class="com.prettyant.action.FileAndLoanManage"/>
+
+        <endEvent id="finish" name="完成"/>
+
+        <sequenceFlow sourceRef="signContract" targetRef="loanOrigination"/>
+        <sequenceFlow sourceRef="resultManage" targetRef="finish"/>
+        <sequenceFlow sourceRef="creditApproval" targetRef="passCreditApproval"/>
+        <sequenceFlow sourceRef="fieldSurvey" targetRef="passSurvey"/>
+        <sequenceFlow sourceRef="loanOrigination" targetRef="resultManage"/>
+        <sequenceFlow sourceRef="approveTask" targetRef="businessService"/>
+
+        <sequenceFlow name="审核通过" sourceRef="passCreditReview" targetRef="creditApproval">
+            <conditionExpression xsi:type="tFormalExpression"><![CDATA[${approved}]]></conditionExpression>
+        </sequenceFlow>
+        <sequenceFlow name="否" sourceRef="passCreditReview" targetRef="fieldSurvey">
+            <conditionExpression xsi:type="tFormalExpression"><![CDATA[${!approved}]]></conditionExpression>
+        </sequenceFlow>
+        <sequenceFlow name="是" sourceRef="passCreditApproval" targetRef="signContract">
+            <conditionExpression xsi:type="tFormalExpression"><![CDATA[${approved}]]></conditionExpression>
+        </sequenceFlow>
+        <sequenceFlow name="否" sourceRef="passCreditApproval" targetRef="fieldSurvey">
+            <conditionExpression xsi:type="tFormalExpression"><![CDATA[${!approved}]]></conditionExpression>
+        </sequenceFlow>
+        <sequenceFlow name="初步调查通过" sourceRef="passSurvey" targetRef="businessApproval">
+            <conditionExpression xsi:type="tFormalExpression"><![CDATA[${approved}]]></conditionExpression>
+        </sequenceFlow>
+        <sequenceFlow name="否" sourceRef="passSurvey" targetRef="approveTask">
+            <conditionExpression xsi:type="tFormalExpression"><![CDATA[${!approved}]]></conditionExpression>
+        </sequenceFlow>
+    </process>
+</definitions>
