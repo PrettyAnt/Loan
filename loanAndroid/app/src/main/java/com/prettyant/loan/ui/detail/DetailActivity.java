@@ -10,6 +10,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.alibaba.android.arouter.facade.annotation.Route;
 import com.prettyant.loan.R;
 import com.prettyant.loan.cons.ContantFields;
 import com.prettyant.loan.model.mvpview.QueryHistoryMvpView;
@@ -28,6 +29,7 @@ import java.util.List;
 /**
  * 用户办理详情页面
  */
+@Route(path = ContantFields.ACTIVITY_DETAIL)
 public class DetailActivity extends BaseActivity implements QueryHistoryMvpView, OnRefreshListener {
 
     private QueryHistoryPresenter queryHistoryPresenter;

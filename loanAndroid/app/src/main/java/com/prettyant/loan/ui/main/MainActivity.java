@@ -1,7 +1,10 @@
 package com.prettyant.loan.ui.main;
 
+import android.os.Bundle;
 import android.text.TextUtils;
 
+import com.alibaba.android.arouter.facade.annotation.Route;
+import com.alibaba.android.arouter.launcher.ARouter;
 import com.google.android.material.tabs.TabLayout;
 
 import androidx.fragment.app.Fragment;
@@ -22,6 +25,7 @@ import com.prettyant.loan.ui.main.fragment.FragmentTabMy;
 /**
  * 主页
  */
+@Route(path = ContantFields.ACTIVITY_MAIN)
 public class MainActivity extends BaseActivity {
 
     ViewPager2 viewPager2;
@@ -38,6 +42,7 @@ public class MainActivity extends BaseActivity {
     public int getContentView() {
         return R.layout.activity_main;
     }
+
 
     @Override
     public void initView() {

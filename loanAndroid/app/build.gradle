@@ -17,6 +17,17 @@ android {
         targetSdkVersion 33
         versionCode 1
         versionName "1.0"
+//        javaCompileOptions {
+//            annotationProcessorOptions {
+//                arguments = [AROUTER_MODULE_NAME: project.getName()]
+//            }
+//        }
+
+        kapt {
+            arguments {
+                arg("AROUTER_MODULE_NAME", project.getName())
+            }
+        }
     }
     buildTypes {
         release {
@@ -43,21 +54,27 @@ android {
 
 dependencies {
 //    compile fileTree(include: ['*.jar'], dir: 'libs')
-    implementation 'com.squareup.retrofit2:retrofit:2.5.0'
-    implementation 'com.squareup.retrofit2:converter-gson:2.4.0'
-    implementation 'com.squareup.retrofit2:adapter-rxjava:2.0.2'
-    implementation 'androidx.appcompat:appcompat:1.4.1'
+    implementation 'com.squareup.retrofit2:retrofit:2.9.0'
+    implementation 'com.squareup.retrofit2:converter-gson:2.9.0'
+    implementation 'com.squareup.retrofit2:adapter-rxjava:2.9.0'
+    implementation 'androidx.appcompat:appcompat:1.6.1'
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
     implementation 'com.squareup:otto:1.3.8'
-    implementation 'io.reactivex:rxandroid:1.1.0'
-    implementation 'io.reactivex:rxjava:1.1.1'
-    implementation 'com.google.android.material:material:1.5.0'
-    implementation 'androidx.recyclerview:recyclerview:1.2.1'
-    implementation 'com.squareup.picasso:picasso:2.3.2'
-    implementation 'androidx.core:core-ktx:1.7.0'
+    implementation 'io.reactivex:rxandroid:1.2.1'
+    implementation 'io.reactivex:rxjava:1.3.8'
+    implementation 'com.google.android.material:material:1.8.0'
+    implementation 'androidx.recyclerview:recyclerview:1.3.0'
+    implementation 'com.squareup.picasso:picasso:2.71828'
+    implementation 'androidx.core:core-ktx:1.9.0'
     // 下拉刷新，上拉加载
     implementation 'com.scwang.smartrefresh:SmartRefreshLayout:1.1.3'
     // 没有使用特殊Header,可以不加这一依赖
     implementation 'com.scwang.smartrefresh:SmartRefreshHeader:1.1.3'
-    implementation 'com.github.bumptech.glide:glide:4.12.0'
+    implementation 'com.github.bumptech.glide:glide:4.15.1'
+
+    //路由 ARouter 注意: kotlin版本和java版本依赖方式不一样
+    //https://github.com/alibaba/ARouter
+    implementation 'com.alibaba:arouter-api:1.5.2'
+//    annotationProcessor 'com.alibaba:arouter-compiler:1.5.2'
+    kapt 'com.alibaba:arouter-compiler:1.5.2'
 }

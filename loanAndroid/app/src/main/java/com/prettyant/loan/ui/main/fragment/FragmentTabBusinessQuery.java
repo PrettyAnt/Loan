@@ -10,6 +10,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.alibaba.android.arouter.launcher.ARouter;
 import com.prettyant.loan.R;
 import com.prettyant.loan.cons.ContantFields;
 import com.prettyant.loan.model.mvpview.UserQueryMvpView;
@@ -118,9 +119,7 @@ public class FragmentTabBusinessQuery extends BaseFragment implements UserQueryM
         if (view.getId() == R.id.rl_business_item) {
             LogUtil.i("跳转到详情页面--->>>" + businessInfos.get(position));
             String processInstanceId = businessInfos.get(position).getProcessInstanceId();
-            Intent intent            = new Intent(getActivity(), DetailActivity.class);
-            intent.putExtra("processInstanceId", processInstanceId);
-            startActivity(intent);
+            ARouter.getInstance().build(ContantFields.ACTIVITY_DETAIL).withString("processInstanceId",processInstanceId).navigation();
         }
     }
 

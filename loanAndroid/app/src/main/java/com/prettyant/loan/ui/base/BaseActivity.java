@@ -16,6 +16,7 @@ import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.alibaba.android.arouter.launcher.ARouter;
 import com.prettyant.loan.R;
 import com.prettyant.loan.cons.ContantFields;
 import com.prettyant.loan.view.widget.watermark.WaterMarkView;
@@ -37,8 +38,8 @@ public abstract class BaseActivity extends FragmentActivity implements View.OnCl
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
 //        setContentView(getContentView());
+        ARouter.getInstance().inject(this);
         setContentView(R.layout.activity_base);
         wmvg_name = (WaterMarkViewGroup) findViewById(R.id.wmvg_name);
         FrameLayout        fl_content = findViewById(R.id.fl_content);
@@ -140,10 +141,6 @@ public abstract class BaseActivity extends FragmentActivity implements View.OnCl
             case R.id.tv_left:
                 finish();
         }
-    }
-
-    public void startActivity(Class cla) {
-        startActivity(new Intent(this, cla));
     }
 
 }

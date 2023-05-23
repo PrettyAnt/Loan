@@ -10,6 +10,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.alibaba.android.arouter.launcher.ARouter;
 import com.prettyant.loan.R;
 import com.prettyant.loan.cons.ContantFields;
 import com.prettyant.loan.model.mvpview.LoginMvpView;
@@ -148,9 +149,9 @@ public class LoginActivity extends BaseActivity implements LoginMvpView, RegistM
     @Override
     public void userLoginSuccess(Response response) {
         saveData();
-        startActivity(MainActivity.class);
+        ARouter.getInstance().build(ContantFields.ACTIVITY_MAIN).navigation();
         finish();
-        Toast.makeText(LoginActivity.this, response.message, Toast.LENGTH_SHORT).show();
+//        Toast.makeText(LoginActivity.this, response.message, Toast.LENGTH_SHORT).show();
     }
 
 
@@ -158,7 +159,7 @@ public class LoginActivity extends BaseActivity implements LoginMvpView, RegistM
     public void customerLoginSuccess(Response response) {
         saveData();
         //操作员登录成功
-        startActivity(MainActivity.class);
+        ARouter.getInstance().build(ContantFields.ACTIVITY_MAIN).navigation();
         finish();
         Toast.makeText(LoginActivity.this, response.message, Toast.LENGTH_SHORT).show();
     }
@@ -213,7 +214,7 @@ public class LoginActivity extends BaseActivity implements LoginMvpView, RegistM
         //注册成功，跳转到业务办理页面
         saveData();
         //操作员登录成功
-        startActivity(MainActivity.class);
+        ARouter.getInstance().build(ContantFields.ACTIVITY_MAIN).navigation();
         finish();
         Toast.makeText(LoginActivity.this, response.message, Toast.LENGTH_SHORT).show();
     }

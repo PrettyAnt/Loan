@@ -1,25 +1,26 @@
 package com.prettyant.loan.util;
 
+import android.util.Config;
 import android.util.Log;
+
+import com.prettyant.loan.BuildConfig;
 
 public class LogUtil {
 
     public static final String LOG = "prettyant";
 
-    public static boolean isShowLog = false;//true:打印log，false:不打印log
-
     public static void e(String message) {
-        if (!isShowLog) return;
+        if (!BuildConfig.DEBUG) return;
         Log.e(LOG, message);
     }
 
     public static void i(String message) {
-        if (!isShowLog) return;
+        if (!BuildConfig.DEBUG) return;
         Log.i(LOG, message);
     }
 
     public static void v(String message) {
-        if (!isShowLog) return;
+        if (!BuildConfig.DEBUG) return;
         Log.v(LOG, message);
     }
 
