@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">base</string>
+    <string name="debug_databinding_warning">%s 未遵循 DataBinding 严格模式，存在 Null 安全风险</string>
+</resources>

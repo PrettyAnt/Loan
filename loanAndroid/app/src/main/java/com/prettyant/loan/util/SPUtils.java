@@ -17,8 +17,11 @@ import java.util.Map;
 所以我们使用apply进行替代，apply异步的进行写入；
 但是apply相当于commit来说是new API呢，为了更好的兼容，我们做了适配；
 SharedPreferencesCompat也可以给大家创建兼容类提供了一定的参考~~
+
+ 新版本使用了MMKV
 */
 
+@Deprecated
 public class SPUtils {
     /**
      * 保存在手机里面的文件名

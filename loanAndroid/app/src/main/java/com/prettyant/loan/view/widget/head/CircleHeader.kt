@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.widget.RelativeLayout
 import android.widget.TextView
+import androidx.databinding.DataBindingUtil
 import com.prettyant.loan.R
 import com.prettyant.loan.databinding.PullHeaderViewCircleBinding
 import com.prettyant.loan.view.widget.RefreshCircleView
@@ -18,7 +19,7 @@ import com.scwang.smartrefresh.layout.internal.InternalClassics
 //import kotlinx.android.synthetic.main.pull_header_view_circle.view.*
 
 /**
- * 文字在线客服，聊天消息下拉
+ * 下拉刷新
  */
 class CircleHeader @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null) :
     InternalClassics<CircleHeader>(context, attrs, 0), RefreshHeader {
@@ -29,10 +30,13 @@ class CircleHeader @JvmOverloads constructor(context: Context, attrs: AttributeS
     init {
 //        View.inflate(context, R.layout.pull_header_view_circle, this)
 
-        var binding = PullHeaderViewCircleBinding.inflate(LayoutInflater.from(context))
-        this.refreshCircleView = binding.refreshCircleView
-        this.hintCircleText = binding.hintCircleText
-        this.flyLoadingLayout = binding.flyLoadingLayout
+//        var binding = PullHeaderViewCircleBinding.inflate(LayoutInflater.from(context))
+        var binding = LayoutInflater.from(context).inflate(R.layout.pull_header_view_circle, this)
+
+//        var binding = DataBindingUtil.inflate(this,R.layout.pull_header_view_circle,null,false)
+        this.refreshCircleView = binding.findViewById(R.id.refresh_circle_view)
+        this.hintCircleText = binding.findViewById(R.id.hint_circle_text)
+        this.flyLoadingLayout = binding.findViewById(R.id.flyLoadingLayout)
     }
 
     fun setColor(color: Int) {

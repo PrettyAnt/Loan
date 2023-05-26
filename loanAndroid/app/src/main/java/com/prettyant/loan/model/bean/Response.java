@@ -7,4 +7,11 @@ public class Response {
     public int code;
     public String message;
 
+    @Override
+    public String toString() {
+        return "Response{" +
+                "code=" + code +
+                ", message='" + message + '\'' +
+                '}';
+    }
 }

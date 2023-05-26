@@ -4,7 +4,13 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.databinding.DataBindingUtil;
+import androidx.databinding.ViewDataBinding;
 import androidx.fragment.app.FragmentActivity;
+import androidx.lifecycle.ViewModel;
+import androidx.lifecycle.ViewModelProvider;
 
 import android.text.TextUtils;
 import android.view.View;
@@ -17,6 +23,8 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.alibaba.android.arouter.launcher.ARouter;
+import com.prettyant.base.DataBindingActivity;
+import com.prettyant.loan.MyApplication;
 import com.prettyant.loan.R;
 import com.prettyant.loan.cons.ContantFields;
 import com.prettyant.loan.view.widget.watermark.WaterMarkView;
@@ -25,7 +33,7 @@ import com.prettyant.loan.view.widget.watermark.WaterMarkViewGroup;
 /**
  * Created by chenyu on 2023-05-08
  */
-public abstract class BaseActivity extends FragmentActivity implements View.OnClickListener {
+public abstract class BaseActivity extends AppCompatActivity implements View.OnClickListener {
 
     public Activity context;
 
@@ -40,6 +48,7 @@ public abstract class BaseActivity extends FragmentActivity implements View.OnCl
         super.onCreate(savedInstanceState);
 //        setContentView(getContentView());
         ARouter.getInstance().inject(this);
+
         setContentView(R.layout.activity_base);
         wmvg_name = (WaterMarkViewGroup) findViewById(R.id.wmvg_name);
         FrameLayout        fl_content = findViewById(R.id.fl_content);

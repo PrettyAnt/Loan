@@ -11,6 +11,7 @@ import androidx.fragment.app.Fragment;
 import androidx.viewpager2.widget.ViewPager2;
 
 import com.google.android.material.tabs.TabLayoutMediator;
+import com.prettyant.base.DataBindingConfig;
 import com.prettyant.loan.R;
 import com.prettyant.loan.cons.ContantFields;
 import com.prettyant.loan.ui.base.BaseActivity;
@@ -62,7 +63,9 @@ public class MainActivity extends BaseActivity {
 
     @Override
     public void initData() {
-        if (TextUtils.equals(ContantFields.username, "zhangsan") || TextUtils.equals(ContantFields.username, "lisi")) {
+        String account = getIntent().getStringExtra("account");
+        ContantFields.username = account;
+        if (TextUtils.equals(account, "zhangsan") || TextUtils.equals(account, "lisi")) {
             mTabTitles = new String[]{"已完成", "待处理", "我的"};
             mTabIcons = new Integer[]{R.drawable.tab1_1_selector, R.drawable.tab2_1_selector, R.drawable.tab3_selector};
             mFragments = new Fragment[]{new FragmentTabCusFinishedTask(), new FragmentTabCusCurrentTask(), new FragmentTabMy()};
@@ -98,6 +101,7 @@ public class MainActivity extends BaseActivity {
             super.onPageSelected(position);
         }
     };
+
 
     @Override
     protected void onDestroy() {

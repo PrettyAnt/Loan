@@ -1,33 +1,40 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/flyLoadingLayout"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <LinearLayout
+    <data>
+
+    </data>
+
+    <RelativeLayout
+        android:id="@+id/flyLoadingLayout"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:orientation="vertical">
+        android:layout_height="wrap_content">
 
-        <com.prettyant.loan.view.widget.RefreshCircleView
-            android:id="@+id/refresh_circle_view"
-            android:layout_width="22.33dp"
-            android:layout_height="22.33dp" />
-
-        <!-- 文本 -->
-        <TextView
-            android:id="@+id/hint_circle_text"
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="7dp"
-            android:text="下拉刷新"
-            android:textColor="@color/hint_color"
-            android:textSize="12sp" />
+            android:gravity="center"
+            android:orientation="vertical">
 
-    </LinearLayout>
+            <com.prettyant.loan.view.widget.RefreshCircleView
+                android:id="@+id/refresh_circle_view"
+                android:layout_width="22.33dp"
+                android:layout_height="22.33dp" />
+
+            <!-- 文本 -->
+            <TextView
+                android:id="@+id/hint_circle_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="7dp"
+                android:text="下拉刷新"
+                android:textColor="@color/hint_color"
+                android:textSize="12sp" />
+
+        </LinearLayout>
 
 
-</RelativeLayout>
+    </RelativeLayout>
+</layout>
