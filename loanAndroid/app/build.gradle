@@ -20,7 +20,7 @@ android {
         applicationId "com.prettyant.loan"
 //        applicationId "com.prettyant.loan_zhangsan"
 //        applicationId "com.prettyant.loan_lisi"
-        minSdkVersion 29
+        minSdkVersion 28
         targetSdkVersion 33
         versionCode 1
         versionName "1.0"

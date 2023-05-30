@@ -4,8 +4,11 @@ import androidx.lifecycle.MutableLiveData;
 
 import com.google.gson.Gson;
 import com.prettyant.loan.api.ApiUtil;
+import com.prettyant.loan.cons.ContantFields;
 import com.prettyant.loan.model.bean.BusinessInfo;
+import com.prettyant.loan.model.bean.BusinessInfosResponse;
 import com.prettyant.loan.model.bean.Response;
+import com.prettyant.loan.model.bean.TaskResponse;
 import com.prettyant.loan.model.bean.UserInfo;
 import com.prettyant.loan.util.LogUtil;
 
@@ -100,7 +103,7 @@ public class HttpRequestManager {
      * 注册
      *
      * @param responseBusiness 返回报文
-     * @param businessInfo            请求报文
+     * @param businessInfo     请求报文
      */
     public void getRate(MutableLiveData<BusinessInfo> responseBusiness, BusinessInfo businessInfo) {
         String bodyStr = new Gson().toJson(businessInfo);
@@ -126,6 +129,7 @@ public class HttpRequestManager {
                     }
                 });
     }
+
     /**
      * 提交
      *
@@ -153,6 +157,76 @@ public class HttpRequestManager {
                     public void onNext(Response response) {
                         LogUtil.v(LogUtil.LOG + "----->> 请求成功");
                         responseMutableLiveData.postValue(response);
+                    }
+                });
+    }
+
+    /**
+     * 用户业务查询接口
+     *
+     * @param businessInfosResponseMutableLiveData
+     * @param index
+     */
+    public void query(MutableLiveData<BusinessInfosResponse> businessInfosResponseMutableLiveData, int index) {
+        String authorization = ContantFields.username;
+        ApiUtil.createApiService().userQuery(authorization, index)
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribeOn(Schedulers.io())
+                .subscribe(new Subscriber<BusinessInfosResponse>() {
+                    @Override
+                    public void onCompleted() {
+
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+//                        dissmissProgressDialog();
+                        LogUtil.e("查询失败>>" + e.getMessage());
+                    }
+
+                    @Override
+                    public void onNext(BusinessInfosResponse response) {
+//                        dissmissProgressDialog();
+                        /**
+                         * code:1  success
+                         * code:-1 error
+                         */
+                        businessInfosResponseMutableLiveData.postValue(response);
+//                        if (response.code == 1) {
+//                        } else {
+//                        }
+                    }
+                });
+    }
+    /**
+     * 查询当前任务
+     * @param taskResponseMutableLiveData
+     * @param index
+     */
+    public void queryCurrentTask(MutableLiveData<TaskResponse> taskResponseMutableLiveData,int index) {
+        String authorization = ContantFields.username;
+        ApiUtil.createApiService().queryCurrentTask(authorization,index)
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribeOn(Schedulers.io())
+                .subscribe(new Subscriber<TaskResponse>() {
+                    @Override
+                    public void onCompleted() {
+
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        LogUtil.e("查询成功>>" + e.getMessage());
+                    }
+
+                    @Override
+                    public void onNext(TaskResponse response) {
+                        /**
+                         * code:1  success
+                         * code:-1 error
+                         */
+                        taskResponseMutableLiveData.postValue(response);
+
                     }
                 });
     }
