@@ -1,326 +1,380 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:background="@color/white_trans_0">
-    <RelativeLayout
-        android:id="@+id/rl_title"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:visibility="visible"
-        android:background="@color/common_title_bg">
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
 
-        <TextView
-            android:id="@+id/tv_business"
-            android:layout_width="wrap_content"
+    <data>
+        <variable
+            name="vm"
+            type="com.prettyant.loan.ui.main.fragment.TabBusinessViewModel" />
+        <variable
+            name="click"
+            type="com.prettyant.loan.ui.main.fragment.FragmentTabBusiness.ProxyClick" />
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:background="@color/white_trans_0">
+
+        <RelativeLayout
+            android:id="@+id/rl_title"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:padding="14dp"
-            android:text="业务办理"
+            android:visibility="visible"
+            android:background="@color/common_title_bg">
+
+            <TextView
+                android:id="@+id/tv_business"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:padding="14dp"
+                android:text="业务办理"
+                android:textColor="@color/white"
+                android:textSize="18sp" />
+
+        </RelativeLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/white_trans_65"
+            android:paddingStart="12dp"
+            android:paddingEnd="20dp"
+            android:paddingTop="16dp"
+            android:paddingBottom="8dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_weight="2"
+                android:layout_height="wrap_content"
+                android:textColor="@color/colorBlack"
+                android:textSize="16sp"
+                android:gravity="center"
+                android:textStyle="bold"
+                android:text="姓    名" />
+
+            <TextView
+                android:id="@+id/tv_username"
+                android:layout_width="0dp"
+                android:layout_weight="6"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:text="@={vm.username}"
+                android:paddingTop="8dp"
+                android:paddingStart="8dp"
+                android:paddingBottom="8dp"
+                android:textColor="@color/colorBlack"
+                android:textSize="18sp" />
+
+            <View
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="1dp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/white_trans_65"
+            android:paddingStart="12dp"
+            android:paddingEnd="20dp"
+            android:paddingTop="8dp"
+            android:paddingBottom="8dp"
+            android:layout_marginTop="1dp"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_weight="2"
+                android:layout_height="wrap_content"
+                android:textColor="@color/colorBlack"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                android:gravity="center"
+                android:text="贷款用途" />
+
+            <TextView
+                android:id="@+id/tv_choose"
+                android:layout_width="0dp"
+                android:layout_weight="7"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:hint="请选择"
+                android:paddingTop="8dp"
+                android:paddingStart="8dp"
+                android:paddingBottom="8dp"
+                android:text="@={vm.choose}"
+                android:onClick="@{()->click.click()}"
+                android:textColor="@color/colorPrimaryDark"
+                android:textSize="18sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/white_trans_65"
+            android:paddingStart="12dp"
+            android:paddingEnd="20dp"
+            android:paddingTop="8dp"
+            android:paddingBottom="8dp"
+            android:layout_marginTop="1dp"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_weight="2"
+                android:layout_height="wrap_content"
+                android:textColor="@color/colorBlack"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                android:gravity="center"
+                android:text="贷款年限" />
+
+            <RadioGroup
+                android:id="@+id/rg_during"
+                android:layout_width="0dp"
+                android:layout_weight="7"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:onCheckedChanged="@{(v1,v2)->vm.onCheckChanged(v1,v2)}"
+                android:orientation="horizontal">
+<!-- android:checkedButton="@={vm.checkedButton}"-->
+                <RadioButton
+                    android:id="@+id/rb_1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:value="1"
+                    android:text="1年" />
+
+                <RadioButton
+                    android:id="@+id/rb_3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:value="2"
+                    android:text="3年" />
+
+                <RadioButton
+                    android:id="@+id/rb_5"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:value="3"
+                    android:text="5年" />
+
+                <RadioButton
+                    android:id="@+id/rb_10"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:value="4"
+                    android:text="10年" />
+
+            </RadioGroup>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/white_trans_65"
+            android:paddingStart="12dp"
+            android:paddingEnd="20dp"
+            android:paddingTop="8dp"
+            android:paddingBottom="8dp"
+            android:layout_marginTop="1dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_weight="2"
+                android:layout_height="wrap_content"
+                android:textColor="@color/colorBlack"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                android:gravity="center"
+                android:text="贷款金额" />
+
+            <EditText
+                android:id="@+id/et_amout"
+                android:layout_width="0dp"
+                android:layout_weight="6"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:background="@drawable/shape_edit_text"
+                android:digits="0123456789."
+                android:inputType="textMultiLine|number"
+                android:lines="1"
+                android:text="@={vm.amout}"
+                android:paddingTop="8dp"
+                android:paddingStart="8dp"
+                android:paddingBottom="8dp"
+                android:textColor="@color/colorBlack"
+                android:textSize="18sp" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:text="元"
+                android:textColor="@color/colorBlack"
+                android:textSize="16sp"
+                android:gravity="center"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/white_trans_65"
+            android:paddingStart="12dp"
+            android:paddingEnd="20dp"
+            android:paddingTop="8dp"
+            android:paddingBottom="8dp"
+            android:layout_marginTop="1dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_weight="2"
+                android:layout_height="wrap_content"
+                android:textColor="@color/colorBlack"
+                android:textSize="16sp"
+                android:gravity="center"
+                android:textStyle="bold"
+                android:text="贷款利率" />
+
+            <TextView
+                android:id="@+id/tv_rate"
+                android:layout_width="0dp"
+                android:layout_weight="2.5"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="@={vm.rate}"
+                android:paddingTop="8dp"
+                android:paddingStart="8dp"
+                android:paddingBottom="8dp"
+                android:textColor="@color/colorBlack"
+                android:textSize="18sp" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_weight="1.5"
+                android:text="%"
+                android:textColor="@color/colorBlack"
+                android:textSize="16sp"
+                android:gravity="start"
+                android:layout_height="wrap_content" />
+
+            <TextView
+                android:id="@+id/tv_cal"
+                android:layout_width="0dp"
+                android:layout_weight="3"
+                android:text="点击试算"
+                android:textColor="@color/white"
+                android:textSize="16sp"
+                android:paddingTop="4dp"
+                android:paddingBottom="4dp"
+                android:gravity="center"
+                android:background="@drawable/shape_cal_text"
+                android:layout_height="wrap_content"
+                android:onClick="@{()->vm.calue()}"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/ll_total"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/white_trans_65"
+            android:paddingStart="12dp"
+            android:paddingEnd="20dp"
+            android:paddingTop="8dp"
+            android:paddingBottom="8dp"
+            android:layout_marginTop="1dp"
+            android:gravity="center_vertical"
+            android:visibility="visible"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_weight="2"
+                android:layout_height="wrap_content"
+                android:textColor="@color/colorBlack"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                android:gravity="center"
+                android:text="累计本息" />
+
+            <TextView
+                android:id="@+id/tv_total"
+                android:layout_width="0dp"
+                android:layout_weight="4"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:paddingTop="8dp"
+                android:paddingStart="8dp"
+                android:paddingBottom="8dp"
+                android:text="@={vm.total}"
+                android:textColor="@color/colorPrimaryDark"
+                android:textSize="18sp" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_weight="3"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:text="元"
+                android:paddingTop="8dp"
+                android:paddingStart="8dp"
+                android:paddingBottom="8dp"
+                android:textColor="@color/colorBlack"
+                android:textSize="18sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:paddingStart="12dp"
+            android:paddingEnd="12dp"
+            android:background="@color/white_trans_65"
+            android:orientation="horizontal">
+
+            <CheckBox
+                android:id="@+id/cb_rule"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:checked="@={vm.rule}" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="12sp"
+                android:textColor="@color/colorBlack"
+                android:text="已阅读" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="14sp"
+                android:textColor="@color/colorPrimaryDark"
+                android:text="@string/rules" />
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/btn_submit"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="12dp"
+            android:layout_marginEnd="12dp"
+            android:layout_marginTop="16dp"
+            android:background="@drawable/common_btn_selector"
+            android:text="提交申请"
+            android:onClick="@{()->vm.submit()}"
             android:textColor="@color/white"
             android:textSize="18sp" />
 
-    </RelativeLayout>
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/white_trans_65"
-        android:paddingStart="12dp"
-        android:paddingEnd="20dp"
-        android:paddingTop="16dp"
-        android:paddingBottom="8dp"
-        android:orientation="horizontal">
-        <TextView
-            android:layout_width="0dp"
-            android:layout_weight="2"
-            android:layout_height="wrap_content"
-            android:textColor="@color/colorBlack"
-            android:textSize="16sp"
-            android:gravity="center"
-            android:textStyle="bold"
-            android:text="姓    名"/>
-        <TextView
-            android:id="@+id/tv_username"
-            android:layout_width="0dp"
-            android:layout_weight="6"
-            android:layout_height="wrap_content"
-            android:gravity="center_vertical"
-            android:text=""
-            android:paddingTop="8dp"
-            android:paddingStart="8dp"
-            android:paddingBottom="8dp"
-            android:textColor="@color/colorBlack"
-            android:textSize="18sp"/>
-        <View
-            android:layout_width="0dp"
-            android:layout_weight="1"
-            android:layout_height="1dp"/>
     </LinearLayout>
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/white_trans_65"
-        android:paddingStart="12dp"
-        android:paddingEnd="20dp"
-        android:paddingTop="8dp"
-        android:paddingBottom="8dp"
-        android:layout_marginTop="1dp"
-        android:gravity="center_vertical"
-        android:orientation="horizontal">
-        <TextView
-            android:layout_width="0dp"
-            android:layout_weight="2"
-            android:layout_height="wrap_content"
-            android:textColor="@color/colorBlack"
-            android:textSize="16sp"
-            android:textStyle="bold"
-            android:gravity="center"
-            android:text="贷款用途"/>
-        <TextView
-            android:id="@+id/tv_choose"
-            android:layout_width="0dp"
-            android:layout_weight="7"
-            android:layout_height="wrap_content"
-            android:gravity="center_vertical"
-            android:hint="请选择"
-            android:paddingTop="8dp"
-            android:paddingStart="8dp"
-            android:paddingBottom="8dp"
-            android:textColor="@color/colorPrimaryDark"
-            android:textSize="18sp"/>
-    </LinearLayout>
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/white_trans_65"
-        android:paddingStart="12dp"
-        android:paddingEnd="20dp"
-        android:paddingTop="8dp"
-        android:paddingBottom="8dp"
-        android:layout_marginTop="1dp"
-        android:gravity="center_vertical"
-        android:orientation="horizontal">
-        <TextView
-            android:layout_width="0dp"
-            android:layout_weight="2"
-            android:layout_height="wrap_content"
-            android:textColor="@color/colorBlack"
-            android:textSize="16sp"
-            android:textStyle="bold"
-            android:gravity="center"
-            android:text="贷款年限"/>
-        <RadioGroup
-            android:id="@+id/rg_during"
-            android:layout_width="0dp"
-            android:layout_weight="7"
-            android:layout_height="wrap_content"
-            android:gravity="center_vertical"
-            android:orientation="horizontal">
-            <RadioButton
-                android:id="@+id/rb_1"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="1年"/>
-            <RadioButton
-                android:id="@+id/rb_3"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="10dp"
-                android:text="3年"/>
-            <RadioButton
-                android:id="@+id/rb_5"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="10dp"
-                android:text="5年"/>
-            <RadioButton
-                android:id="@+id/rb_10"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="10dp"
-                android:text="10年"/>
-
-        </RadioGroup>
-    </LinearLayout>
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/white_trans_65"
-        android:paddingStart="12dp"
-        android:paddingEnd="20dp"
-        android:paddingTop="8dp"
-        android:paddingBottom="8dp"
-        android:layout_marginTop="1dp"
-        android:orientation="horizontal">
-        <TextView
-            android:layout_width="0dp"
-            android:layout_weight="2"
-            android:layout_height="wrap_content"
-            android:textColor="@color/colorBlack"
-            android:textSize="16sp"
-            android:textStyle="bold"
-            android:gravity="center"
-            android:text="贷款金额"/>
-        <EditText
-            android:id="@+id/et_amout"
-            android:layout_width="0dp"
-            android:layout_weight="6"
-            android:layout_height="wrap_content"
-            android:gravity="center_vertical"
-            android:background="@drawable/shape_edit_text"
-            android:digits="0123456789."
-            android:inputType="textMultiLine|number"
-            android:lines="1"
-            android:paddingTop="8dp"
-            android:paddingStart="8dp"
-            android:paddingBottom="8dp"
-            android:textColor="@color/colorBlack"
-            android:textSize="18sp"/>
-        <TextView
-            android:layout_width="0dp"
-            android:layout_weight="1"
-            android:text="元"
-            android:textColor="@color/colorBlack"
-            android:textSize="16sp"
-            android:gravity="center"
-            android:layout_height="wrap_content"/>
-    </LinearLayout>
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/white_trans_65"
-        android:paddingStart="12dp"
-        android:paddingEnd="20dp"
-        android:paddingTop="8dp"
-        android:paddingBottom="8dp"
-        android:layout_marginTop="1dp"
-        android:orientation="horizontal">
-        <TextView
-            android:layout_width="0dp"
-            android:layout_weight="2"
-            android:layout_height="wrap_content"
-            android:textColor="@color/colorBlack"
-            android:textSize="16sp"
-            android:gravity="center"
-            android:textStyle="bold"
-            android:text="贷款利率"/>
-        <TextView
-            android:id="@+id/tv_rate"
-            android:layout_width="0dp"
-            android:layout_weight="2.5"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:text="0"
-            android:paddingTop="8dp"
-            android:paddingStart="8dp"
-            android:paddingBottom="8dp"
-            android:textColor="@color/colorBlack"
-            android:textSize="18sp"/>
-        <TextView
-            android:layout_width="0dp"
-            android:layout_weight="1.5"
-            android:text="%"
-            android:textColor="@color/colorBlack"
-            android:textSize="16sp"
-            android:gravity="start"
-            android:layout_height="wrap_content"/>
-        <TextView
-            android:id="@+id/tv_cal"
-            android:layout_width="0dp"
-            android:layout_weight="3"
-            android:text="点击试算"
-            android:textColor="@color/white"
-            android:textSize="16sp"
-            android:paddingTop="4dp"
-            android:paddingBottom="4dp"
-            android:gravity="center"
-            android:background="@drawable/shape_cal_text"
-            android:layout_height="wrap_content"/>
-    </LinearLayout>
-    <LinearLayout
-        android:id="@+id/ll_total"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/white_trans_65"
-        android:paddingStart="12dp"
-        android:paddingEnd="20dp"
-        android:paddingTop="8dp"
-        android:paddingBottom="8dp"
-        android:layout_marginTop="1dp"
-        android:gravity="center_vertical"
-        android:visibility="visible"
-        android:orientation="horizontal">
-        <TextView
-            android:layout_width="0dp"
-            android:layout_weight="2"
-            android:layout_height="wrap_content"
-            android:textColor="@color/colorBlack"
-            android:textSize="16sp"
-            android:textStyle="bold"
-            android:gravity="center"
-            android:text="累计本息"/>
-        <TextView
-            android:id="@+id/tv_total"
-            android:layout_width="0dp"
-            android:layout_weight="4"
-            android:layout_height="wrap_content"
-            android:gravity="center_vertical"
-            android:paddingTop="8dp"
-            android:paddingStart="8dp"
-            android:paddingBottom="8dp"
-            android:textColor="@color/colorPrimaryDark"
-            android:textSize="18sp"/>
-        <TextView
-            android:layout_width="0dp"
-            android:layout_weight="3"
-            android:layout_height="wrap_content"
-            android:gravity="center_vertical"
-            android:text="元"
-            android:paddingTop="8dp"
-            android:paddingStart="8dp"
-            android:paddingBottom="8dp"
-            android:textColor="@color/colorBlack"
-            android:textSize="18sp"/>
-    </LinearLayout>
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="12dp"
-        android:paddingStart="12dp"
-        android:paddingEnd="12dp"
-        android:background="@color/white_trans_65"
-        android:orientation="horizontal">
-        <CheckBox
-            android:id="@+id/cb_rule"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:checked="false"/>
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="12sp"
-            android:textColor="@color/colorBlack"
-            android:text="已阅读"
-            />
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="14sp"
-            android:textColor="@color/colorPrimaryDark"
-            android:text="@string/rules"
-            />
-    </LinearLayout>
-    <Button
-        android:id="@+id/btn_submit"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="12dp"
-        android:layout_marginEnd="12dp"
-        android:layout_marginTop="16dp"
-        android:background="@drawable/common_btn_selector"
-        android:text="提交申请"
-        android:textColor="@color/white"
-        android:textSize="18sp" />
-
-</LinearLayout>
+</layout>

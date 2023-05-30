@@ -1,15 +1,19 @@
 package com.prettyant.loan.ui.base;
 
 import android.os.Bundle;
+import android.text.TextUtils;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 import androidx.databinding.ViewDataBinding;
+import androidx.lifecycle.ViewModelProvider;
 
 import com.alibaba.android.arouter.launcher.ARouter;
 import com.prettyant.loan.R;
+import com.prettyant.loan.cons.ContantFields;
 import com.prettyant.loan.databinding.ActivityBaseJetBinding;
+import com.prettyant.loan.ui.login.LoginViewModel;
 
 
 /**
@@ -54,6 +58,7 @@ public abstract class BaseJetActivity<DB extends ViewDataBinding,VM extends Base
 
         activityBaseJetBinding = DataBindingUtil.setContentView(this, R.layout.activity_base_jet);
         dataBinding = DataBindingUtil.inflate(getLayoutInflater(), getLayoutResId(), activityBaseJetBinding.flContent, true);
+        initWaterMark();
         initViewModel();
         bindViewModel();
         dataBinding.setLifecycleOwner(this);
@@ -61,7 +66,15 @@ public abstract class BaseJetActivity<DB extends ViewDataBinding,VM extends Base
         if (viewModel != null) {
             getLifecycle().addObserver(viewModel);
         }
+    }
 
+    /**
+     * 初始化水印
+     */
+    private void initWaterMark() {
+        if (!TextUtils.isEmpty(ContantFields.username)) {
+            activityBaseJetBinding.wmvgName.setParams(ContantFields.username);
+        }
     }
 
 

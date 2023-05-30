@@ -1,9 +1,16 @@
-apply plugin: 'com.android.application'
-apply plugin: 'org.jetbrains.kotlin.android'
-//apply plugin: 'me.tatarka.retrolambda'
-apply plugin: 'kotlin-android'
-//apply plugin: 'kotlin-android-extensions'
-apply plugin: 'kotlin-kapt'
+//apply plugin: 'com.android.application'
+//apply plugin: 'org.jetbrains.kotlin.android'
+////apply plugin: 'me.tatarka.retrolambda'
+//apply plugin: 'kotlin-android'
+////apply plugin: 'kotlin-android-extensions'
+//apply plugin: 'kotlin-kapt'
+plugins {
+    id 'com.android.application'
+    id 'org.jetbrains.kotlin.android'
+    id 'kotlin-android'
+    id 'kotlin-kapt'
+    id 'androidx.navigation.safeargs'
+}
 
 android {
     compileSdkVersion 33
@@ -82,6 +89,12 @@ dependencies {
     implementation 'com.alibaba:arouter-api:1.5.2'
 //    annotationProcessor 'com.alibaba:arouter-compiler:1.5.2'
     kapt 'com.alibaba:arouter-compiler:1.5.2'
+
+    //google navigation导航
+    def nav_version = "2.5.3"
+    // Java language implementation
+    implementation "androidx.navigation:navigation-fragment:$nav_version"
+    implementation "androidx.navigation:navigation-ui:$nav_version"
 
     implementation project(':base')
 }

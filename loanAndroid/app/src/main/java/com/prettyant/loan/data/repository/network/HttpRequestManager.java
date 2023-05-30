@@ -4,6 +4,7 @@ import androidx.lifecycle.MutableLiveData;
 
 import com.google.gson.Gson;
 import com.prettyant.loan.api.ApiUtil;
+import com.prettyant.loan.model.bean.BusinessInfo;
 import com.prettyant.loan.model.bean.Response;
 import com.prettyant.loan.model.bean.UserInfo;
 import com.prettyant.loan.util.LogUtil;
@@ -22,10 +23,10 @@ import rx.schedulers.Schedulers;
  * PackageName : com.prettyant.loan.data.repository.network
  * describle :
  */
-public class HttpRequestManager implements IRemoteRequest {
+public class HttpRequestManager {
     private static final HttpRequestManager ourInstance = new HttpRequestManager();
 
-   public static HttpRequestManager getInstance() {
+    public static HttpRequestManager getInstance() {
         return ourInstance;
     }
 
@@ -35,10 +36,10 @@ public class HttpRequestManager implements IRemoteRequest {
 
     /**
      * 登录
+     *
      * @param loginDataResultMutableLiveData
      * @param userInfoMutableLiveData
      */
-    @Override
     public void requestLoginData(MutableLiveData<Response> loginDataResultMutableLiveData, MutableLiveData<UserInfo> userInfoMutableLiveData) {
         String bodyStr = new Gson().toJson(userInfoMutableLiveData.getValue());
         RequestBody body = RequestBody.create(MediaType.parse("application/json; charset=utf-8"), bodyStr);
@@ -58,7 +59,7 @@ public class HttpRequestManager implements IRemoteRequest {
 
                     @Override
                     public void onNext(Response response) {
-                        LogUtil.v(LogUtil.LOG+"----->> 请求成功");
+                        LogUtil.v(LogUtil.LOG + "----->> 请求成功");
                         loginDataResultMutableLiveData.postValue(response);
                     }
                 });
@@ -66,8 +67,9 @@ public class HttpRequestManager implements IRemoteRequest {
 
     /**
      * 注册
-     * @param responseMutableLiveData  返回报文
-     * @param userInfoMutableLiveData  请求报文
+     *
+     * @param responseMutableLiveData 返回报文
+     * @param userInfoMutableLiveData 请求报文
      */
     public void requestRegistData(MutableLiveData<Response> responseMutableLiveData, MutableLiveData<UserInfo> userInfoMutableLiveData) {
         String bodyStr = new Gson().toJson(userInfoMutableLiveData.getValue());
@@ -88,7 +90,68 @@ public class HttpRequestManager implements IRemoteRequest {
 
                     @Override
                     public void onNext(Response response) {
-                        LogUtil.v(LogUtil.LOG+"----->> 请求成功");
+                        LogUtil.v(LogUtil.LOG + "----->> 请求成功");
+                        responseMutableLiveData.postValue(response);
+                    }
+                });
+    }
+
+    /**
+     * 注册
+     *
+     * @param responseBusiness 返回报文
+     * @param businessInfo            请求报文
+     */
+    public void getRate(MutableLiveData<BusinessInfo> responseBusiness, BusinessInfo businessInfo) {
+        String bodyStr = new Gson().toJson(businessInfo);
+        RequestBody body = RequestBody.create(MediaType.parse("application/json; charset=utf-8"), bodyStr);
+        ApiUtil.createApiService().getRate(businessInfo.getUsername(), body)
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribeOn(Schedulers.io())
+                .subscribe(new Subscriber<BusinessInfo>() {
+                    @Override
+                    public void onCompleted() {
+
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+
+                    }
+
+                    @Override
+                    public void onNext(BusinessInfo businessInfo) {
+                        LogUtil.v(LogUtil.LOG + "----->> 请求成功");
+                        responseBusiness.postValue(businessInfo);
+                    }
+                });
+    }
+    /**
+     * 提交
+     *
+     * @param responseMutableLiveData 返回报文
+     * @param businessInfo            请求报文
+     */
+    public void apply(MutableLiveData<Response> responseMutableLiveData, BusinessInfo businessInfo) {
+        String bodyStr = new Gson().toJson(businessInfo);
+        RequestBody body = RequestBody.create(MediaType.parse("application/json; charset=utf-8"), bodyStr);
+        ApiUtil.createApiService().apply(businessInfo.getUsername(), body)
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribeOn(Schedulers.io())
+                .subscribe(new Subscriber<Response>() {
+                    @Override
+                    public void onCompleted() {
+
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+
+                    }
+
+                    @Override
+                    public void onNext(Response response) {
+                        LogUtil.v(LogUtil.LOG + "----->> 请求成功");
                         responseMutableLiveData.postValue(response);
                     }
                 });

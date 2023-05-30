@@ -48,6 +48,7 @@ public class LoginActivity extends BaseJetActivity<ActivityLoginBinding, LoginVi
                 } else {
                     MMKV.defaultMMKV().remove("password");
                 }
+                ContantFields.username = viewModel.getAccount().getValue();
                 finish();
             } else if (response.code == 2) {
                 //用户未注册

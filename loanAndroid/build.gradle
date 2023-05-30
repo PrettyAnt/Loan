@@ -4,6 +4,7 @@ apply plugin: 'com.alibaba.arouter'
 buildscript {
     ext {
         kotlin_version = '1.8.21'
+        nav_version = '2.5.3'
     }
     repositories {
         //jcenter()
@@ -25,6 +26,8 @@ buildscript {
         classpath 'me.tatarka:gradle-retrolambda:3.1.0'
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
         classpath 'com.alibaba:arouter-register:1.0.2'
+//        def nav_version = "2.5.3"
+        classpath "androidx.navigation:navigation-safe-args-gradle-plugin:$nav_version"
         // NOTE: Do not place your application dependencies here; they belong
         // in the individual module build.gradle files
     }
