@@ -46,6 +46,7 @@ public class FragmentTabBusiness extends BaseJetFragment<FragmentBusinessBinding
     @Override
     protected void init() {
         dataBinding.llTotal.setVisibility(View.GONE);
+        businessTypeModels.clear();
         BusinessTypeModel businessTypeModel = new BusinessTypeModel();
         businessTypeModel.setBusinessIcon(R.mipmap.icon_fangdai);
         businessTypeModel.setBusinessName("房贷");

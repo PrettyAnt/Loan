@@ -50,7 +50,7 @@ public class FragmentTabBusinessQuery extends BaseJetFragment<FragmentBusinessQu
         dataBinding.srlRefresh.setOnLoadMoreListener(refreshLayout -> viewModel.onLoadMore());
 
         //新recyclerView方案
-        CommonAdapter<BusinessInfo> businessInfoCommonAdapter = new CommonAdapter<>(businessInfos, R.layout.list_business_info, BR.businessInfo);
+        CommonAdapter<BusinessInfo> businessInfoCommonAdapter = new CommonAdapter<>(businessInfos, R.layout.list_business_info, BR.businessInfo,BR.holder);
         dataBinding.rvBusinessQuery.setAdapter(businessInfoCommonAdapter);
         dataBinding.rvBusinessQuery.setLayoutManager(new LinearLayoutManager(getActivity(), RecyclerView.VERTICAL, false));
         businessInfoCommonAdapter.setItemClickListener((view, position) -> {

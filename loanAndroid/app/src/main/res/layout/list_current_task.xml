@@ -9,6 +9,10 @@
         <variable
             name="taskInfo"
             type="com.prettyant.loan.model.bean.TaskModel" />
+
+        <variable
+            name="holder"
+            type="com.prettyant.loan.ui.main.holder.CommonHolder" />
     </data>
 
     <LinearLayout
@@ -20,6 +24,7 @@
         android:layout_marginEnd="24dp"
         android:background="@drawable/shape_cus_dealtask_item"
         android:orientation="vertical"
+        android:onClick="@{(view)->holder.onClick(view)}"
         android:paddingStart="22dp"
         android:paddingTop="16dp"
         android:paddingEnd="22dp"

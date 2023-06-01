@@ -2,7 +2,6 @@ package com.prettyant.loan.view.pop;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
-import android.content.Context;
 import android.graphics.drawable.BitmapDrawable;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -11,17 +10,15 @@ import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.PopupWindow;
 
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
+import androidx.databinding.DataBindingUtil;
+import androidx.lifecycle.Observer;
 
 import com.prettyant.loan.BR;
 import com.prettyant.loan.R;
-import com.prettyant.loan.imp.ItemClickListener;
-import com.prettyant.loan.model.bean.BusinessTypeModel;
-import com.prettyant.loan.ui.main.adapter.CommonAdapter;
-import com.prettyant.loan.view.pop.adapter.BusinessTypeAdapter;
-
-import java.util.ArrayList;
+import com.prettyant.loan.databinding.PopCusapproveLayoutBinding;
+import com.prettyant.loan.model.bean.Response;
+import com.prettyant.loan.model.bean.TaskModel;
+import com.prettyant.loan.ui.main.fragment.FragmentTabCusCurrentTask;
 
 /**
  * @author ChenYu
@@ -29,19 +26,22 @@ import java.util.ArrayList;
  * <p>
  * Created on 11:07  2019-09-04
  * PackageName : com.example.serviceonline.View.pop
- * describle :
+ * describle :操作员审核弹窗
  */
-public class BusinessTypePopWindow {
-    private static BusinessTypePopWindow                 INSTANCE;
-    private        PopupWindow                           popupWindow;
-    private        Activity                              activity;
-    private        BusinessTypeAdapter.ItemClickListener itemClickCallBack;
-    private        ArrayList<BusinessTypeModel>          businessTypeModels;
+public class CusApprovePopWindow {
+    private static CusApprovePopWindow INSTANCE;
+    private PopDismissCallBack popDismissCallBack;
+    private PopupWindow popupWindow;
+    private Activity activity;
+    private TaskModel taskModel;
+    private PopCusapproveLayoutBinding popCusapproveLayoutBinding;
+    private CusApprovePopWindowViewModel popHolderViewModel;
+    private FragmentTabCusCurrentTask fragmentTabCusCurrentTask;
 
 
-    public static BusinessTypePopWindow getInstance() {
+    public static CusApprovePopWindow getInstance() {
         if (INSTANCE == null) {
-            INSTANCE = new BusinessTypePopWindow();
+            INSTANCE = new CusApprovePopWindow();
         }
         return INSTANCE;
     }
@@ -67,26 +67,24 @@ public class BusinessTypePopWindow {
      *      
      */
     @SuppressLint("WrongConstant")
-    public void showBusinessPop(View view, Activity activity, ArrayList<BusinessTypeModel> businessTypeModels, BusinessTypeAdapter.ItemClickListener itemClickCallBack) {
-        this.businessTypeModels = businessTypeModels;
+    public void approvePop(FragmentTabCusCurrentTask fragmentTabCusCurrentTask, View view, Activity activity, TaskModel taskModel, PopDismissCallBack popDismissCallBack) {
+        this.fragmentTabCusCurrentTask = fragmentTabCusCurrentTask;
         this.activity = activity;
+        this.taskModel = taskModel;
+        this.popDismissCallBack = popDismissCallBack;
         float backgroundAlpha = 0.5f;
-        this.itemClickCallBack = itemClickCallBack;
         if (popupWindow != null && popupWindow.isShowing()) {
             popupWindow.dismiss();
             popupWindow = null;
 //            return;
         }
-        LayoutInflater inflater    = (LayoutInflater) activity.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        View           contentView = inflater.inflate(R.layout.pop_businesstype_layout, null);
-        initView(activity, contentView);
+        popCusapproveLayoutBinding = DataBindingUtil.inflate(LayoutInflater.from(activity), R.layout.pop_cusapprove_layout, null, false);
 
-
-        popupWindow = new PopupWindow(contentView,
+        popupWindow = new PopupWindow(popCusapproveLayoutBinding.getRoot(),
                 ViewGroup.LayoutParams.MATCH_PARENT,
                 ViewGroup.LayoutParams.MATCH_PARENT);
         //点击空白处时，隐藏掉pop窗口
-        popupWindow.setFocusable(false);
+        popupWindow.setFocusable(true);
         popupWindow.setOutsideTouchable(false);
         popupWindow.setTouchable(true);
         setBackgroundAlpha(backgroundAlpha);
@@ -102,36 +100,29 @@ public class BusinessTypePopWindow {
             @Override
             public void onDismiss() {
                 setBackgroundAlpha(1.0f);
-
+                popDismissCallBack.onPopDismissCallBack();
             }
         });
+        init();
         initData();
     }
 
+
     private void initData() {
+        popHolderViewModel.getShowRadioGorup().setValue(taskModel.isNeedJudge());
     }
 
     /**
      * 初始化pop页面的数据
-     *
-     * @param activity
-     * @param inflate
      */
-    private void initView(Activity activity, View inflate) {
-        RecyclerView        recyclerView        = inflate.findViewById(R.id.rv_business);
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(activity, RecyclerView.VERTICAL, false);
-        recyclerView.setLayoutManager(linearLayoutManager);
-        CommonAdapter<BusinessTypeModel> businessTypeModelCommonAdapter = new CommonAdapter<>(businessTypeModels, R.layout.item_business_type, BR.businessType, BR.holder);
-
-//        BusinessTypeAdapter businessTypeAdapter = new BusinessTypeAdapter(activity, businessTypeModels);
-        recyclerView.setAdapter(businessTypeModelCommonAdapter);
-        businessTypeModelCommonAdapter.setItemClickListener(new ItemClickListener() {
-            @Override
-            public void onItemClickListener(View view, int position) {
-                itemClickCallBack.onItemClickListener(view,position);
-                popupWindow.dismiss();
-            }
-        });
+    private void init() {
+        popCusapproveLayoutBinding.setVariable(BR.taskInfo, taskModel);
+        popHolderViewModel = new CusApprovePopWindowViewModel(activity.getApplication());
+        popCusapproveLayoutBinding.setPopHolderViewModel(popHolderViewModel);
+        popHolderViewModel.setActivity(activity);
+        popHolderViewModel.setPop(popupWindow);
+        popHolderViewModel.setTaskModel(taskModel);
+        popHolderViewModel.getResponseMutableLiveData().observe(fragmentTabCusCurrentTask, response -> popupWindow.dismiss());
     }
 
     /**
@@ -146,15 +137,9 @@ public class BusinessTypePopWindow {
         activity.getWindow().setAttributes(lp);
     }
 
-
-    /**
-     * 隐藏popupWindow
-     */
-    public void hideBottomPop() {
-        if (popupWindow == null) {
-            return;
-        }
-        popupWindow.dismiss();
+    public interface PopDismissCallBack {
+       public void onPopDismissCallBack();
     }
+
 
 }

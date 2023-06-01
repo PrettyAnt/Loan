@@ -51,6 +51,14 @@ public abstract class BaseJetFragment<DB extends ViewDataBinding, VM extends Bas
         return fragmentJetBaseBinding.getRoot();
     }
 
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        if (viewModel != null) {
+            getLifecycle().removeObserver(viewModel);
+        }
+    }
+
     /**
      * 处理参数
      *

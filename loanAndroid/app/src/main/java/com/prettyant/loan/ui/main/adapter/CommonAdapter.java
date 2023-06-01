@@ -24,20 +24,28 @@ import java.util.List;
  * describle :
  */
 public class CommonAdapter<T> extends RecyclerView.Adapter<CommonHolder> {
+    private int holdId;
     private List<T> list;
     private int defaultLayout;
     private int brId;
     private ItemClickListener itemClickListener;
 
-    public CommonAdapter(int defaultLayout, int brId) {
-        this.defaultLayout = defaultLayout;
-        this.brId = brId;
-    }
+//    public CommonAdapter(int defaultLayout, int brId) {
+//        this.defaultLayout = defaultLayout;
+//        this.brId = brId;
+//    }
 
-    public CommonAdapter(List<T> list, int defaultLayout, int brId) {
+    /**
+     * @param list          数据源
+     * @param defaultLayout 布局
+     * @param brId          layout文件中的数据源模型的id
+     * @param holdId        layout文件中holder 的id ,用于绑定viewholder来完成点击事件
+     */
+    public CommonAdapter(List<T> list, int defaultLayout, int brId, int holdId) {
         this.list = list;
         this.defaultLayout = defaultLayout;
         this.brId = brId;
+        this.holdId = holdId;
     }
 
     @NonNull
@@ -50,7 +58,7 @@ public class CommonAdapter<T> extends RecyclerView.Adapter<CommonHolder> {
     @Override
     public void onBindViewHolder(@NonNull CommonHolder holder, int position) {
         //绑定数据
-        holder.bind(brId,list.get(position));
+        holder.bind(brId,holdId,list.get(position));
     }
 
     @Override

@@ -1,35 +1,51 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:layout_margin="6dp"
-    android:orientation="vertical">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+        <variable
+            name="businessType"
+            type="com.prettyant.loan.model.bean.BusinessTypeModel" />
+        <variable
+            name="holder"
+            type="com.prettyant.loan.ui.main.holder.CommonHolder" />
+    </data>
 
     <LinearLayout
-        android:id="@+id/ll_business_item"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/shape_business_item"
-        android:orientation="horizontal"
-        android:gravity="center">
+        android:layout_margin="6dp"
+        android:orientation="vertical">
 
-        <ImageView
-            android:id="@+id/iv_business_icon"
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:id="@+id/ll_business_item"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:src="@mipmap/icon_fangdai" />
+            android:background="@drawable/shape_business_item"
+            android:onClick="@{(view)->holder.onClick(view)}"
+            android:orientation="horizontal"
+            android:gravity="center">
 
-        <TextView
-            android:id="@+id/tv_business_type"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:paddingStart="6dp"
-            android:gravity="center"
-            android:paddingTop="10dp"
-            android:paddingBottom="10dp"
-            android:text="房贷"
-            android:textColor="#000" />
+            <ImageView
+                android:id="@+id/iv_business_icon"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:businessIcon="@{businessType.businessIcon}"/>
+<!--
+                android:src="@={businessType.businessIcon}"-->
+
+            <TextView
+                android:id="@+id/tv_business_type"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:paddingStart="6dp"
+                android:gravity="center"
+                android:paddingTop="10dp"
+                android:paddingBottom="10dp"
+                android:text="@={businessType.businessName}"
+                android:textColor="#000" />
+        </LinearLayout>
+
     </LinearLayout>
-
-</LinearLayout>
+</layout>

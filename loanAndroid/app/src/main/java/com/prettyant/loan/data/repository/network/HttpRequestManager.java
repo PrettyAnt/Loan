@@ -230,4 +230,38 @@ public class HttpRequestManager {
                     }
                 });
     }
+
+    /**
+     *
+     * @param taskId
+     * @param processInstanceId
+     * @param message
+     * @param approved
+     */
+    public void dealTask(MutableLiveData<Response> responseMutableLiveData,String taskId, String processInstanceId, String message, boolean approved) {
+        ApiUtil.createApiService().dealTask(taskId,processInstanceId,message,approved)
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribeOn(Schedulers.io())
+                .subscribe(new Subscriber<Response>() {
+                    @Override
+                    public void onCompleted() {
+
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        LogUtil.e("查询成功>>" + e.getMessage());
+                    }
+
+                    @Override
+                    public void onNext(Response response) {
+                        /**
+                         * code:1  success
+                         * code:-1 error
+                         */
+                        responseMutableLiveData.postValue(response);
+
+                    }
+                });
+    }
 }

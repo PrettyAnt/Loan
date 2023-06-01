@@ -6,7 +6,7 @@ import com.prettyant.loan.R;
 import com.prettyant.loan.ui.main.fragment.FragmentTabBusiness;
 import com.prettyant.loan.ui.main.fragment.FragmentTabBusinessQuery;
 import com.prettyant.loan.ui.main.fragment.FragmentTabCusCurrentTask;
-import com.prettyant.loan.ui.main.fragment.FragmentTabCusFinishedTask;
+import com.prettyant.loan.ui.main.fragment.FragmentTabCusFinishedTask1;
 import com.prettyant.loan.ui.main.fragment.FragmentTabMy;
 
 /**
@@ -20,7 +20,7 @@ public enum FragmentEnum {
     fragbusiness(new FragmentTabBusiness(), R.drawable.tab1_selector, "业务办理"),
     fragbusinessquery(new FragmentTabBusinessQuery(), R.drawable.tab2_selector, "业务查询"),
     fragmy(new FragmentTabMy(), R.drawable.tab3_selector, "我的"),
-    fragfinishtask(new FragmentTabCusFinishedTask(), R.drawable.tab1_1_selector, "已完成"),
+    fragfinishtask(new FragmentTabCusFinishedTask1(), R.drawable.tab1_1_selector, "已完成"),
     fragcurrenttask(new FragmentTabCusCurrentTask(), R.drawable.tab2_1_selector, "待处理");
 
     private Fragment fragment;

@@ -26,9 +26,9 @@ public class CommonHolder extends RecyclerView.ViewHolder {
         this.dataBinding = dataBinding;
     }
 
-    public <T> void bind(int brId, T t) {
+    public <T> void bind(int brId,int holdId, T t) {
         dataBinding.setVariable(brId, t);
-        dataBinding.setVariable(BR.holder, this);
+        dataBinding.setVariable(holdId, this);
         dataBinding.executePendingBindings();
     }
 

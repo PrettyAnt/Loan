@@ -82,4 +82,24 @@ public class BindAdapterUtil {
     public static  void businessDescrible(View view, String describle) {
         view.setVisibility(TextUtils.isEmpty(describle)?View.GONE:View.VISIBLE);
     }
+
+    /**
+     * 提交按钮是否可见
+     * @param view
+     * @param approve
+     */
+    @BindingAdapter(value = "approveButtonIsVisible",requireAll = false)
+    public static  void approveButtonIsVisible(View view, boolean approve) {
+        view.setVisibility(approve?View.VISIBLE:View.GONE);
+    }
+
+    /**
+     * 提交按钮是否可见
+     * @param view
+     * @param src
+     */
+    @BindingAdapter(value = "businessIcon",requireAll = false)
+    public static  void businessIcon(ImageView view, int src) {
+        view.setImageResource(src);
+    }
 }
