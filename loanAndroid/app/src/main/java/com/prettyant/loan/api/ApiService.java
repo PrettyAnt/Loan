@@ -20,7 +20,7 @@ import rx.Observable;
  */
 public interface ApiService {
 
-    String API_ROOT = "http://192.168.140.62:8100/";
+    String API_ROOT = "http://192.168.159.62:8100/";
 
     /**
      * 登录

@@ -3,7 +3,6 @@ package com.prettyant.loan.presenter;
 import android.content.Context;
 
 import com.prettyant.loan.model.bean.TaskResponse;
-import com.prettyant.loan.model.mvpview.QueryCurrentTaskMvpView;
 import com.prettyant.loan.model.mvpview.QueryFinishedTaskMvpView;
 import com.prettyant.loan.presenter.base.BasePresenter;
 import com.prettyant.loan.util.LogUtil;
