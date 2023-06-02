@@ -25,6 +25,11 @@ public class FragmentTabBusinessQuery extends BaseJetFragment<FragmentBusinessQu
     private List<BusinessInfo> businessInfos = new ArrayList<>();
 
     @Override
+    protected String getTitle() {
+        return "业务查询";
+    }
+
+    @Override
     protected int getLayoutResId() {
         return R.layout.fragment_business_query;
     }

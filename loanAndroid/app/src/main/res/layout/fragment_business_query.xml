@@ -14,24 +14,6 @@
         android:background="@color/white_trans_0"
         android:orientation="vertical">
 
-        <RelativeLayout
-            android:id="@+id/rl_title"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@color/common_title_bg"
-            android:visibility="visible">
-
-            <TextView
-                android:id="@+id/tv_business"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerInParent="true"
-                android:padding="14dp"
-                android:text="业务查询"
-                android:textColor="@color/white"
-                android:textSize="18sp" />
-        </RelativeLayout>
-
         <com.scwang.smartrefresh.layout.SmartRefreshLayout
             android:id="@+id/srl_refresh"
             android:layout_width="match_parent"

@@ -44,12 +44,23 @@ public abstract class BaseJetFragment<DB extends ViewDataBinding, VM extends Bas
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         FragmentJetBaseBinding fragmentJetBaseBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_jet_base, container, false);
+        initTitle(fragmentJetBaseBinding);
         dataBinding = DataBindingUtil.inflate(inflater, getLayoutResId(), fragmentJetBaseBinding.flContentContainer, true);
         bindViewModel();
         dataBinding.setLifecycleOwner(this);
         init();
         return fragmentJetBaseBinding.getRoot();
     }
+
+    protected void initTitle(FragmentJetBaseBinding fragmentJetBaseBinding) {
+        fragmentJetBaseBinding.tvTitle.setText(getTitle());
+    }
+
+    /**
+     * 应用标题
+     * @return
+     */
+    protected abstract String getTitle();
 
     @Override
     public void onDestroyView() {

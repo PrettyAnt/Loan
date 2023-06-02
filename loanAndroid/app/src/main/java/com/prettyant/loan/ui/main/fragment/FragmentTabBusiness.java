@@ -27,6 +27,11 @@ public class FragmentTabBusiness extends BaseJetFragment<FragmentBusinessBinding
     private ArrayList<BusinessTypeModel> businessTypeModels = new ArrayList<>();
 
     @Override
+    protected String getTitle() {
+        return "业务办理";
+    }
+
+    @Override
     protected int getLayoutResId() {
         return R.layout.fragment_business;
     }

@@ -30,4 +30,5 @@
     <string name="title_user_business">业务办理</string>
     <string name="title_user_query">业务查询</string>
     <string name="desc_current_status">当前状态 :</string>
+    <string name="desc_current_null">无</string>
 </resources>

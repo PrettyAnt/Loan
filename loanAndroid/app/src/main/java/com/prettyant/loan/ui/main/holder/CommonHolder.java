@@ -26,7 +26,7 @@ public class CommonHolder extends RecyclerView.ViewHolder {
         this.dataBinding = dataBinding;
     }
 
-    public <T> void bind(int brId,int holdId, T t) {
+    public <T> void bind(int brId, int holdId, T t) {
         dataBinding.setVariable(brId, t);
         dataBinding.setVariable(holdId, this);
         dataBinding.executePendingBindings();
@@ -34,10 +34,13 @@ public class CommonHolder extends RecyclerView.ViewHolder {
 
     /**
      * item的点击事件
+     *
      * @param view
      */
     public void onClick(View view) {
-        itemClickListener.onItemClickListener(view, getLayoutPosition());
+        if (itemClickListener != null) {
+            itemClickListener.onItemClickListener(view, getLayoutPosition());
+        }
     }
 
 }

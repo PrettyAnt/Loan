@@ -15,6 +15,11 @@ import com.prettyant.loan.ui.base.BaseJetFragment;
  */
 public class FragmentTabMy extends BaseJetFragment<FragmentMyBinding,TabMyViewModel> {
     @Override
+    protected String getTitle() {
+        return "我的";
+    }
+
+    @Override
     protected int getLayoutResId() {
         return R.layout.fragment_my;
     }

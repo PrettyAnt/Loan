@@ -23,6 +23,11 @@ public class FragmentTabCusFinishedTask extends BaseJetFragment<FragmentLayoutFi
     private List<TaskModel> taskInfos = new ArrayList<>();
 
     @Override
+    protected String getTitle() {
+        return "已完成";
+    }
+
+    @Override
     protected int getLayoutResId() {
         return R.layout.fragment_layout_finishedtask;
     }

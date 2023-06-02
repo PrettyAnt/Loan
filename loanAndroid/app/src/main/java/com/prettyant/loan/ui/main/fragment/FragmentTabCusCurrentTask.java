@@ -24,6 +24,12 @@ import java.util.List;
  */
 public class FragmentTabCusCurrentTask extends BaseJetFragment<FragmentLayoutCurrenttaskBinding,TabCusCurrentTaskViewModel> implements ItemClickListener {
     private List<TaskModel> taskInfos = new ArrayList<>();
+
+    @Override
+    protected String getTitle() {
+        return "待处理";
+    }
+
     @Override
     protected int getLayoutResId() {
         return R.layout.fragment_layout_currenttask;
