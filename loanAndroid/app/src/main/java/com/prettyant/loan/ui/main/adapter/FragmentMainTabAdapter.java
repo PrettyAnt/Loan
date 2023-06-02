@@ -15,6 +15,9 @@ import androidx.viewpager2.adapter.FragmentStateAdapter;
 import com.prettyant.loan.R;
 import com.prettyant.loan.data.bean.FragmentEnum;
 
+/**
+ * 导航适配器
+ */
 public class FragmentMainTabAdapter extends FragmentStateAdapter {
     private Context mContext;
     private FragmentEnum[] fragmentEnums;

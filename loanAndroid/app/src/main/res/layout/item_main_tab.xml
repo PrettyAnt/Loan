@@ -4,7 +4,7 @@
     android:layout_height="match_parent"
     android:gravity="center"
     android:orientation="vertical">
-
+    <!--底部导航-->
     <ImageView
         android:id="@+id/iv_icon"
         android:layout_width="20dp"
@@ -17,5 +17,5 @@
         android:layout_marginTop="3dp"
         android:singleLine="true"
         android:textColor="@color/main_tab_text_selector"
-        android:textSize="12sp"/>
+        android:textSize="12sp" />
 </LinearLayout>
