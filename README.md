@@ -1,7 +1,7 @@
 #### 项目介绍
 
 - loan为java后端项目
-- loan为移动端android 项目，其中loanAndroid 目前有2个主要分支 mvp、mvvm,后续会新增kotlin版本
+- loanAndroid为移动端android 项目，其中loanAndroid 目前有2个主要分支 mvp、mvvm,后续会新增kotlin版本
   - mvp分支的android项目即mvp架构模式实现的
   - mvvm分支的android项目即使用google Jetpack mvvm架构模式实现的
 
