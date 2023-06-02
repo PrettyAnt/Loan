@@ -6,7 +6,7 @@ import androidx.annotation.NonNull;
 import androidx.lifecycle.MutableLiveData;
 
 import com.prettyant.loan.data.repository.network.HttpRequestManager;
-import com.prettyant.loan.model.bean.TaskResponse;
+import com.prettyant.loan.data.bean.TaskResponse;
 import com.prettyant.loan.ui.base.BaseJetViewModel;
 
 /**
@@ -50,6 +50,6 @@ public class TabCusFinishedViewModel extends BaseJetViewModel {
     }
 
     private void loadData() {
-        HttpRequestManager.getInstance().queryCurrentTask(taskResponseMutableLiveData, index);
+        HttpRequestManager.getInstance().queryFinishedTask(taskResponseMutableLiveData, index);
     }
 }

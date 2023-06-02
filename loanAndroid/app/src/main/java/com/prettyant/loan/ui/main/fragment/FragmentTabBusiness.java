@@ -9,10 +9,10 @@ import androidx.lifecycle.ViewModelProvider;
 
 import com.prettyant.loan.R;
 import com.prettyant.loan.databinding.FragmentBusinessBinding;
-import com.prettyant.loan.model.bean.BusinessTypeModel;
+import com.prettyant.loan.imp.ItemClickListener;
+import com.prettyant.loan.data.bean.BusinessTypeModel;
 import com.prettyant.loan.ui.base.BaseJetFragment;
 import com.prettyant.loan.view.pop.BusinessTypePopWindow;
-import com.prettyant.loan.view.pop.adapter.BusinessTypeAdapter;
 
 import java.util.ArrayList;
 
@@ -100,7 +100,7 @@ public class FragmentTabBusiness extends BaseJetFragment<FragmentBusinessBinding
         });
     }
 
-    public class ProxyClick implements BusinessTypeAdapter.ItemClickListener {
+    public class ProxyClick implements ItemClickListener {
         public void click() {
             BusinessTypePopWindow.getInstance().showBusinessPop(dataBinding.tvChoose, getActivity(), businessTypeModels, this);
         }

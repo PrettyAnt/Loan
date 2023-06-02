@@ -13,8 +13,8 @@ import androidx.lifecycle.MutableLiveData;
 
 import com.prettyant.loan.cons.ContantFields;
 import com.prettyant.loan.data.repository.network.HttpRequestManager;
-import com.prettyant.loan.model.bean.BusinessInfo;
-import com.prettyant.loan.model.bean.Response;
+import com.prettyant.loan.data.bean.BusinessInfo;
+import com.prettyant.loan.data.bean.Response;
 import com.prettyant.loan.ui.base.BaseJetViewModel;
 import com.prettyant.loan.util.LogUtil;
 import com.prettyant.loan.view.CommDialog;

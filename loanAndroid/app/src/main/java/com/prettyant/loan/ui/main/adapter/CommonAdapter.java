@@ -9,8 +9,8 @@ import androidx.databinding.ViewDataBinding;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.prettyant.loan.imp.ItemClickListener;
-import com.prettyant.loan.model.bean.BusinessInfo;
-import com.prettyant.loan.model.bean.FlowPathModel;
+import com.prettyant.loan.data.bean.BusinessInfo;
+import com.prettyant.loan.data.bean.FlowPathModel;
 import com.prettyant.loan.ui.main.holder.CommonHolder;
 
 import java.util.List;
@@ -83,8 +83,6 @@ public class CommonAdapter<T> extends RecyclerView.Adapter<CommonHolder> {
         }
         return defaultLayout;
     }
-
-
 
     public void setItemClickListener(ItemClickListener itemClickListener) {
         this.itemClickListener = itemClickListener;

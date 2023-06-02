@@ -1,20 +1,13 @@
 package com.prettyant.loan.ui.main.fragment;
 
 import android.app.Application;
-import android.view.View;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.MutableLiveData;
-import androidx.recyclerview.widget.RecyclerView;
 
 import com.prettyant.loan.data.repository.network.HttpRequestManager;
-import com.prettyant.loan.model.bean.BusinessInfo;
-import com.prettyant.loan.model.bean.BusinessInfosResponse;
+import com.prettyant.loan.data.bean.BusinessInfosResponse;
 import com.prettyant.loan.ui.base.BaseJetViewModel;
-import com.scwang.smartrefresh.layout.api.RefreshLayout;
-
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * @author chenyu

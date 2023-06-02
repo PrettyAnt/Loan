@@ -5,6 +5,7 @@ import android.widget.Toast;
 
 import androidx.lifecycle.ViewModelProvider;
 
+import com.alibaba.android.arouter.facade.annotation.Route;
 import com.alibaba.android.arouter.launcher.ARouter;
 import com.prettyant.loan.R;
 import com.prettyant.loan.cons.ContantFields;
@@ -16,6 +17,7 @@ import com.tencent.mmkv.MMKV;
 /**
  * 登录页面
  */
+@Route(path = ContantFields.ACTIVITY_LOGIN)
 public class LoginActivity extends BaseJetActivity<ActivityLoginBinding, LoginViewModel> {
 
     @Override

@@ -5,11 +5,13 @@ import androidx.lifecycle.MutableLiveData;
 import com.google.gson.Gson;
 import com.prettyant.loan.api.ApiUtil;
 import com.prettyant.loan.cons.ContantFields;
-import com.prettyant.loan.model.bean.BusinessInfo;
-import com.prettyant.loan.model.bean.BusinessInfosResponse;
-import com.prettyant.loan.model.bean.Response;
-import com.prettyant.loan.model.bean.TaskResponse;
-import com.prettyant.loan.model.bean.UserInfo;
+import com.prettyant.loan.data.bean.BusinessInfo;
+import com.prettyant.loan.data.bean.BusinessInfosResponse;
+import com.prettyant.loan.data.bean.FlowPathModel;
+import com.prettyant.loan.data.bean.FlowPathModelResponse;
+import com.prettyant.loan.data.bean.Response;
+import com.prettyant.loan.data.bean.TaskResponse;
+import com.prettyant.loan.data.bean.UserInfo;
 import com.prettyant.loan.util.LogUtil;
 
 import okhttp3.MediaType;
@@ -232,6 +234,38 @@ public class HttpRequestManager {
     }
 
     /**
+     * 查询已完成的任务
+     * @param taskResponseMutableLiveData
+     * @param index  索引
+     */
+    public void queryFinishedTask(MutableLiveData<TaskResponse> taskResponseMutableLiveData,int index) {
+        String authorization = ContantFields.username;
+        ApiUtil.createApiService().queryFinishedTask(authorization,index)
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribeOn(Schedulers.io())
+                .subscribe(new Subscriber<TaskResponse>() {
+                    @Override
+                    public void onCompleted() {
+
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        LogUtil.e("查询失败>>" + e.getMessage());
+                    }
+
+                    @Override
+                    public void onNext(TaskResponse response) {
+                        /**
+                         * code:1  success
+                         * code:-1 error
+                         */
+                       taskResponseMutableLiveData.postValue(response);
+                    }
+                });
+    }
+
+    /**
      *
      * @param taskId
      * @param processInstanceId
@@ -261,6 +295,75 @@ public class HttpRequestManager {
                          */
                         responseMutableLiveData.postValue(response);
 
+                    }
+                });
+    }
+    /**
+     * 查询历史
+     *
+     * @param flowPathModelMutableLiveData
+     * @param processInstanceId
+     */
+    public void queryHistory(MutableLiveData<FlowPathModelResponse> flowPathModelMutableLiveData, String processInstanceId) {
+        String authorization = ContantFields.username;
+        ApiUtil.createApiService().queryHistory(authorization,processInstanceId)
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribeOn(Schedulers.io())
+                .subscribe(new Subscriber<FlowPathModelResponse>() {
+                    @Override
+                    public void onCompleted() {
+
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+//                        dissmissProgressDialog();
+                        FlowPathModelResponse flowPathModelResponse = new FlowPathModelResponse();
+                        flowPathModelResponse.code = -1;
+                        flowPathModelResponse.message = e.getMessage();
+                        flowPathModelMutableLiveData.postValue(flowPathModelResponse);
+                    }
+
+                    @Override
+                    public void onNext(FlowPathModelResponse response) {
+//                        dissmissProgressDialog();
+                        /**
+                         * code:1  success
+                         * code:-1 error
+                         */
+                        flowPathModelMutableLiveData.postValue(response);
+
+                    }
+                });
+    }
+
+    /**
+     * 登出
+     * @param responseMutableLiveData
+     */
+    public void logOut(MutableLiveData<Response> responseMutableLiveData) {
+        String authorization = ContantFields.username;
+        ApiUtil.createApiService().logOut(authorization)
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribeOn(Schedulers.io())
+                .subscribe(new Subscriber<Response>() {
+                    @Override
+                    public void onCompleted() {
+
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        LogUtil.e("登出失败>>" + e.getMessage());
+                    }
+
+                    @Override
+                    public void onNext(Response response) {
+                        /**
+                         * code:1  success
+                         * code:-1 error
+                         */
+                        responseMutableLiveData.postValue(response);
                     }
                 });
     }

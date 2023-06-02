@@ -6,7 +6,7 @@ import androidx.annotation.NonNull;
 import androidx.lifecycle.MutableLiveData;
 
 import com.prettyant.loan.data.repository.network.HttpRequestManager;
-import com.prettyant.loan.model.bean.TaskResponse;
+import com.prettyant.loan.data.bean.TaskResponse;
 import com.prettyant.loan.ui.base.BaseJetViewModel;
 
 /**

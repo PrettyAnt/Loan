@@ -8,8 +8,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.prettyant.loan.BR;
 import com.prettyant.loan.R;
+import com.prettyant.loan.data.bean.TaskModel;
 import com.prettyant.loan.databinding.FragmentLayoutFinishedtaskBinding;
-import com.prettyant.loan.model.bean.TaskModel;
 import com.prettyant.loan.ui.base.BaseJetFragment;
 import com.prettyant.loan.ui.main.adapter.CommonAdapter;
 

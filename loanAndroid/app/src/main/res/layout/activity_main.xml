@@ -9,74 +9,93 @@
             type="com.prettyant.loan.ui.main.MainViewModel" />
     </data>
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical">
-
-            <androidx.viewpager2.widget.ViewPager2
-                android:id="@+id/vp_content"
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="1" />
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="0.5dp"
-                android:background="#D0D0D0" />
-
-            <com.google.android.material.tabs.TabLayout
-                android:id="@+id/tabl_navigation"
-                android:layout_width="match_parent"
-                android:layout_height="55dp"
-                app:tabIndicatorColor="#fff" />
-
-        </LinearLayout>
-
-
-<!--    <androidx.constraintlayout.widget.ConstraintLayout-->
+<!--    <RelativeLayout-->
+<!--        android:id="@+id/rl_title"-->
 <!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="match_parent"-->
-<!--        app:layout_behavior="@string/appbar_scrolling_view_behavior">-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:background="@color/common_title_bg"-->
+<!--        android:visibility="visible">-->
 
-<!--        <com.google.android.material.bottomnavigation.BottomNavigationView-->
-<!--            android:id="@+id/nav_view_bottom"-->
-<!--            android:layout_width="0dp"-->
+<!--        <TextView-->
+<!--            android:id="@+id/tv_business"-->
+<!--            android:layout_width="wrap_content"-->
 <!--            android:layout_height="wrap_content"-->
-<!--            android:layout_marginStart="0dp"-->
-<!--            android:layout_marginEnd="0dp"-->
-<!--            android:background="?android:attr/windowBackground"-->
-<!--            app:layout_behavior="com.example.myapplication.behavior.BottomNavigationBehavior"-->
-<!--            app:layout_constraintBottom_toBottomOf="parent"-->
-<!--            app:layout_constraintLeft_toLeftOf="parent"-->
-<!--            app:layout_constraintRight_toRightOf="parent"-->
-<!--            app:menu="@menu/bottom_nav_menu" />-->
+<!--            android:layout_centerInParent="true"-->
+<!--            android:padding="14dp"-->
+<!--            android:text="测试aa"-->
+<!--            android:textColor="@color/white"-->
+<!--            android:textSize="18sp" />-->
 
-<!--        <androidx.viewpager2.widget.ViewPager2-->
-<!--            android:id="@+id/vp_content"-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="0dp"-->
-<!--            android:layout_weight="1"-->
-<!--            app:dataList1="@{vm.dataList}"-->
-<!--            app:defaultNavHost="true"-->
-<!--            app:layout_constraintBottom_toTopOf="@+id/nav_view_bottom"-->
-<!--            app:layout_constraintLeft_toLeftOf="parent"-->
-<!--            app:layout_constraintRight_toRightOf="parent"-->
-<!--            app:layout_constraintTop_toTopOf="parent"/>-->
+<!--    </RelativeLayout>-->
 
-<!--        <fragment-->
-<!--            android:id="@+id/nav_host_fragment"-->
-<!--            android:name="androidx.navigation.fragment.NavHostFragment"-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="0dp"-->
-<!--            android:visibility="gone"-->
-<!--            app:defaultNavHost="true"-->
-<!--            app:layout_constraintBottom_toTopOf="@+id/nav_view_bottom"-->
-<!--            app:layout_constraintLeft_toLeftOf="parent"-->
-<!--            app:layout_constraintRight_toRightOf="parent"-->
-<!--            app:layout_constraintTop_toTopOf="parent"-->
-<!--            app:navGraph="@navigation/mobile_navigation" />-->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <androidx.viewpager2.widget.ViewPager2
+            android:id="@+id/vp_content"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:background="#D0D0D0" />
+
+        <com.google.android.material.tabs.TabLayout
+            android:id="@+id/tabl_navigation"
+            android:layout_width="match_parent"
+            android:layout_height="55dp"
+            app:tabIndicatorColor="#fff" />
+
+    </LinearLayout>
 
 
-<!--    </androidx.constraintlayout.widget.ConstraintLayout>-->
+    <!--    <androidx.constraintlayout.widget.ConstraintLayout-->
+    <!--        android:layout_width="match_parent"-->
+    <!--        android:layout_height="match_parent"-->
+    <!--        app:layout_behavior="@string/appbar_scrolling_view_behavior">-->
+
+    <!--        <com.google.android.material.bottomnavigation.BottomNavigationView-->
+    <!--            android:id="@+id/nav_view_bottom"-->
+    <!--            android:layout_width="0dp"-->
+    <!--            android:layout_height="wrap_content"-->
+    <!--            android:layout_marginStart="0dp"-->
+    <!--            android:layout_marginEnd="0dp"-->
+    <!--            android:background="?android:attr/windowBackground"-->
+    <!--            app:layout_behavior="com.example.myapplication.behavior.BottomNavigationBehavior"-->
+    <!--            app:layout_constraintBottom_toBottomOf="parent"-->
+    <!--            app:layout_constraintLeft_toLeftOf="parent"-->
+    <!--            app:layout_constraintRight_toRightOf="parent"-->
+    <!--            app:menu="@menu/bottom_nav_menu" />-->
+
+    <!--        <androidx.viewpager2.widget.ViewPager2-->
+    <!--            android:id="@+id/vp_content"-->
+    <!--            android:layout_width="match_parent"-->
+    <!--            android:layout_height="0dp"-->
+    <!--            android:layout_weight="1"-->
+    <!--            app:dataList1="@{vm.dataList}"-->
+    <!--            app:defaultNavHost="true"-->
+    <!--            app:layout_constraintBottom_toTopOf="@+id/nav_view_bottom"-->
+    <!--            app:layout_constraintLeft_toLeftOf="parent"-->
+    <!--            app:layout_constraintRight_toRightOf="parent"-->
+    <!--            app:layout_constraintTop_toTopOf="parent"/>-->
+
+    <!--        <fragment-->
+    <!--            android:id="@+id/nav_host_fragment"-->
+    <!--            android:name="androidx.navigation.fragment.NavHostFragment"-->
+    <!--            android:layout_width="match_parent"-->
+    <!--            android:layout_height="0dp"-->
+    <!--            android:visibility="gone"-->
+    <!--            app:defaultNavHost="true"-->
+    <!--            app:layout_constraintBottom_toTopOf="@+id/nav_view_bottom"-->
+    <!--            app:layout_constraintLeft_toLeftOf="parent"-->
+    <!--            app:layout_constraintRight_toRightOf="parent"-->
+    <!--            app:layout_constraintTop_toTopOf="parent"-->
+    <!--            app:navGraph="@navigation/mobile_navigation" />-->
+
+
+    <!--    </androidx.constraintlayout.widget.ConstraintLayout>-->
 </layout>

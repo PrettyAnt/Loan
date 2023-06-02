@@ -11,12 +11,10 @@ import com.alibaba.android.arouter.launcher.ARouter;
 import com.prettyant.loan.BR;
 import com.prettyant.loan.R;
 import com.prettyant.loan.cons.ContantFields;
+import com.prettyant.loan.data.bean.BusinessInfo;
 import com.prettyant.loan.databinding.FragmentBusinessQueryBinding;
-import com.prettyant.loan.imp.ItemClickListener;
-import com.prettyant.loan.model.bean.BusinessInfo;
 import com.prettyant.loan.ui.base.BaseJetFragment;
 import com.prettyant.loan.ui.main.adapter.CommonAdapter;
-import com.prettyant.loan.util.LogUtil;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -62,9 +60,9 @@ public class FragmentTabBusinessQuery extends BaseJetFragment<FragmentBusinessQu
         viewModel.getBusinessInfosResponseMutableLiveData().observe(this, businessInfosResponse -> {
             if (viewModel.state == 1) {
                 businessInfos.clear();
-                businessInfos.addAll(businessInfosResponse.list);
+                businessInfos.addAll(businessInfosResponse.getList());
             } else {
-                businessInfos.addAll(businessInfosResponse.list);
+                businessInfos.addAll(businessInfosResponse.getList());
             }
             businessInfoCommonAdapter.notifyDataSetChanged();
             dataBinding.srlRefresh.finishRefresh();

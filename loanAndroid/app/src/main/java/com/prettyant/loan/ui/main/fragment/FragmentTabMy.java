@@ -1,57 +1,41 @@
 package com.prettyant.loan.ui.main.fragment;
 
-import android.content.Intent;
-import android.view.View;
-import android.widget.LinearLayout;
-import android.widget.TextView;
+import android.widget.Toast;
 
+import androidx.lifecycle.ViewModelProvider;
+
+import com.alibaba.android.arouter.launcher.ARouter;
 import com.prettyant.loan.R;
 import com.prettyant.loan.cons.ContantFields;
-import com.prettyant.loan.ui.base.BaseFragment;
-import com.prettyant.loan.ui.login.LoginActivity;
-import com.prettyant.loan.util.LogUtil;
+import com.prettyant.loan.databinding.FragmentMyBinding;
+import com.prettyant.loan.ui.base.BaseJetFragment;
 
 
 /**
  */
-public class FragmentTabMy extends BaseFragment {
-
-    LinearLayout ll_head;
-    private TextView tv_username;
-    private LinearLayout ll_logout;
-
+public class FragmentTabMy extends BaseJetFragment<FragmentMyBinding,TabMyViewModel> {
     @Override
-    public int getContentView() {
+    protected int getLayoutResId() {
         return R.layout.fragment_my;
     }
 
     @Override
-    public void initView() {
-        initTitleBar("", "我的", "", 0, this);
-        ll_head = (LinearLayout) $(R.id.ll_head);
-//        ll_head.setBackgroundColor(getResources().getColor(R.color.common_title_bg));
-        tv_username = (TextView) $(R.id.tv_username);
-        ll_logout = (LinearLayout) $(R.id.ll_logout);
+    protected void initViewModel() {
+        viewModel = new ViewModelProvider(this).get(TabMyViewModel.class);
     }
 
     @Override
-    public void initClick() {
-        ll_logout.setOnClickListener(this);
+    protected void bindViewModel() {
+        dataBinding.setMyViewModel(viewModel);
     }
 
     @Override
-    public void initData() {
-        tv_username.setText(ContantFields.username);
-        LogUtil.e("FragmentTabMy");
-    }
-
-    @Override
-    public void onClick(View v) {
-        if (v.getId() == R.id.ll_logout) {
-            ContantFields.username = "";
-            Intent intent = new Intent(getActivity(),LoginActivity.class);
-            getActivity().startActivity(intent);
+    protected void init() {
+        viewModel.getResponseMutableLiveData().observe(this, response -> {
+            Toast.makeText(getActivity(), response.message, Toast.LENGTH_SHORT).show();
             getActivity().finish();
-        }
+            ContantFields.username = "";
+            ARouter.getInstance().build(ContantFields.ACTIVITY_LOGIN).navigation();
+        });
     }
 }

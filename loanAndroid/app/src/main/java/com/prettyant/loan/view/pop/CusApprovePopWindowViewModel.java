@@ -10,8 +10,8 @@ import androidx.annotation.NonNull;
 import androidx.lifecycle.MutableLiveData;
 
 import com.prettyant.loan.data.repository.network.HttpRequestManager;
-import com.prettyant.loan.model.bean.Response;
-import com.prettyant.loan.model.bean.TaskModel;
+import com.prettyant.loan.data.bean.Response;
+import com.prettyant.loan.data.bean.TaskModel;
 import com.prettyant.loan.ui.base.BaseJetViewModel;
 import com.prettyant.loan.view.CommDialog;
 

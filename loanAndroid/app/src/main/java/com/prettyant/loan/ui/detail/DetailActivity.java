@@ -2,26 +2,20 @@ package com.prettyant.loan.ui.detail;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
-import android.view.View;
-import android.widget.ImageView;
 import android.widget.Toast;
 
-import androidx.annotation.NonNull;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
+import com.prettyant.loan.BR;
 import com.prettyant.loan.R;
 import com.prettyant.loan.cons.ContantFields;
-import com.prettyant.loan.model.mvpview.QueryHistoryMvpView;
-import com.prettyant.loan.model.bean.FlowPathModel;
-import com.prettyant.loan.model.bean.FlowPathModelResponse;
-import com.prettyant.loan.presenter.QueryHistoryPresenter;
-import com.prettyant.loan.ui.base.BaseActivity;
-import com.prettyant.loan.ui.main.adapter.BusinessDetailAdatper;
-import com.scwang.smartrefresh.layout.SmartRefreshLayout;
-import com.scwang.smartrefresh.layout.api.RefreshLayout;
-import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
+import com.prettyant.loan.data.bean.FlowPathModel;
+import com.prettyant.loan.databinding.ActivityDetailBinding;
+import com.prettyant.loan.ui.base.BaseJetActivity;
+import com.prettyant.loan.ui.main.adapter.CommonAdapter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -30,82 +24,50 @@ import java.util.List;
  * 用户办理详情页面
  */
 @Route(path = ContantFields.ACTIVITY_DETAIL)
-public class DetailActivity extends BaseActivity implements QueryHistoryMvpView, OnRefreshListener {
+public class DetailActivity extends BaseJetActivity<ActivityDetailBinding,DetailViewModel>{
 
-    private QueryHistoryPresenter queryHistoryPresenter;
     private List<FlowPathModel> flowPathModels = new ArrayList<>();
-    private BusinessDetailAdatper businessDetailAdatper;
-    private SmartRefreshLayout srl_refresh;
-    private String processInstanceId;
-    private ImageView iv_back;
-
     @Override
-    public int getContentView() {
+    protected int getLayoutResId() {
         return R.layout.activity_detail;
     }
 
     @Override
-    public void initView() {
-        iv_back = (ImageView) $(R.id.iv_back);
-        srl_refresh = (SmartRefreshLayout) $(R.id.srl_refresh);
-        RecyclerView       recyclerView = (RecyclerView) $(R.id.rv_detail);
-        LinearLayoutManager   linearLayoutManager   = new LinearLayoutManager(this, RecyclerView.VERTICAL, false);
-        businessDetailAdatper = new BusinessDetailAdatper(this,flowPathModels);
-        recyclerView.setLayoutManager(linearLayoutManager);
-        recyclerView.setAdapter(businessDetailAdatper);
+    protected void initViewModel() {
+        viewModel = new ViewModelProvider(this).get(DetailViewModel.class);
     }
 
     @Override
-    protected void onResume() {
-        super.onResume();
-    }
-
-    @Override
-    public void initClick() {
-        iv_back.setOnClickListener(this);
-        srl_refresh.setOnRefreshListener(this);
-    }
-
-    @Override
-    public void initData() {
-        Intent intent            = getIntent();
-        processInstanceId = intent.getStringExtra("processInstanceId");
-        queryHistoryPresenter = new QueryHistoryPresenter(this);
-        queryHistoryPresenter.attachView(this);
-        queryHistoryPresenter.queryHistory(ContantFields.username, processInstanceId);
-    }
-
-    @Override
-    public void onClick(View v) {
-        if (v.getId() == R.id.iv_back) {
-            finish();
-        }
-    }
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        queryHistoryPresenter.detachView();
+    protected void bindViewModel() {
+        dataBinding.setDetailViewModel(viewModel);
     }
 
     @SuppressLint("NotifyDataSetChanged")
     @Override
-    public void queryHistorySuccess(FlowPathModelResponse flowPathModelResponse) {
-        this.flowPathModels.clear();
-        this.flowPathModels.addAll(flowPathModelResponse.getFlowPathModels());
-        businessDetailAdatper.notifyDataSetChanged();
-    }
+    protected void init() {
+        //设置参数
+        Intent intent            = getIntent();
+        String processInstanceId = intent.getStringExtra("processInstanceId");
+        viewModel.setProcessInstanceId(processInstanceId);
 
-    @Override
-    public void queryHistoryFail(String message) {
-        Toast.makeText(this,message,Toast.LENGTH_SHORT).show();
-        srl_refresh.finishRefresh();
-    }
+        RecyclerView recyclerView = dataBinding.rvDetail;
+        LinearLayoutManager   linearLayoutManager   = new LinearLayoutManager(this, RecyclerView.VERTICAL, false);
+        CommonAdapter<FlowPathModel> commonAdapter = new CommonAdapter<>(flowPathModels, R.layout.item_business_status, BR.flowPathModel, BR.detailHolder);
+        recyclerView.setLayoutManager(linearLayoutManager);
+        recyclerView.setAdapter(commonAdapter);
+        viewModel.onRefresh();
+        viewModel.getFlowPathModelMutableLiveData().observe(this, flowPathModelResponse -> {
+            dataBinding.srlRefresh.finishRefresh();
+            if (flowPathModelResponse.code == 1) {
+                flowPathModels.clear();
+                flowPathModels.addAll(flowPathModelResponse.getFlowPathModels());
+                commonAdapter.notifyDataSetChanged();
+            } else {
+                Toast.makeText(this,flowPathModelResponse.message,Toast.LENGTH_SHORT).show();
+            }
+        });
 
-    @Override
-    public void onRefresh(@NonNull RefreshLayout refreshLayout) {
-        queryHistoryPresenter.queryHistory(ContantFields.username, processInstanceId);
-        srl_refresh.finishRefresh();
+        dataBinding.srlRefresh.setOnRefreshListener(refreshLayout -> viewModel.onRefresh());
     }
 }
 

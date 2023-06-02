@@ -17,9 +17,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.prettyant.loan.BR;
 import com.prettyant.loan.R;
 import com.prettyant.loan.imp.ItemClickListener;
-import com.prettyant.loan.model.bean.BusinessTypeModel;
+import com.prettyant.loan.data.bean.BusinessTypeModel;
 import com.prettyant.loan.ui.main.adapter.CommonAdapter;
-import com.prettyant.loan.view.pop.adapter.BusinessTypeAdapter;
 
 import java.util.ArrayList;
 
@@ -35,7 +34,7 @@ public class BusinessTypePopWindow {
     private static BusinessTypePopWindow                 INSTANCE;
     private        PopupWindow                           popupWindow;
     private        Activity                              activity;
-    private        BusinessTypeAdapter.ItemClickListener itemClickCallBack;
+    private        ItemClickListener itemClickCallBack;
     private        ArrayList<BusinessTypeModel>          businessTypeModels;
 
 
@@ -67,7 +66,7 @@ public class BusinessTypePopWindow {
      *      
      */
     @SuppressLint("WrongConstant")
-    public void showBusinessPop(View view, Activity activity, ArrayList<BusinessTypeModel> businessTypeModels, BusinessTypeAdapter.ItemClickListener itemClickCallBack) {
+    public void showBusinessPop(View view, Activity activity, ArrayList<BusinessTypeModel> businessTypeModels, ItemClickListener itemClickCallBack) {
         this.businessTypeModels = businessTypeModels;
         this.activity = activity;
         float backgroundAlpha = 0.5f;
@@ -123,14 +122,10 @@ public class BusinessTypePopWindow {
         recyclerView.setLayoutManager(linearLayoutManager);
         CommonAdapter<BusinessTypeModel> businessTypeModelCommonAdapter = new CommonAdapter<>(businessTypeModels, R.layout.item_business_type, BR.businessType, BR.holder);
 
-//        BusinessTypeAdapter businessTypeAdapter = new BusinessTypeAdapter(activity, businessTypeModels);
         recyclerView.setAdapter(businessTypeModelCommonAdapter);
-        businessTypeModelCommonAdapter.setItemClickListener(new ItemClickListener() {
-            @Override
-            public void onItemClickListener(View view, int position) {
-                itemClickCallBack.onItemClickListener(view,position);
-                popupWindow.dismiss();
-            }
+        businessTypeModelCommonAdapter.setItemClickListener((view, position) -> {
+            itemClickCallBack.onItemClickListener(view,position);
+            popupWindow.dismiss();
         });
     }
 

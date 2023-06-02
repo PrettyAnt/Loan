@@ -2,8 +2,8 @@ package com.prettyant.loan.data.repository.network;
 
 import androidx.lifecycle.MutableLiveData;
 
-import com.prettyant.loan.model.bean.Response;
-import com.prettyant.loan.model.bean.UserInfo;
+import com.prettyant.loan.data.bean.Response;
+import com.prettyant.loan.data.bean.UserInfo;
 
 /**
  * @author chenyu

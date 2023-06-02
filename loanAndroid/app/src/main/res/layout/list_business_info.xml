@@ -5,7 +5,7 @@
     <data>
         <variable
             name="businessInfo"
-            type="com.prettyant.loan.model.bean.BusinessInfo" />
+            type="com.prettyant.loan.data.bean.BusinessInfo" />
         <!--绑定viewHolder中的点击事件-->
         <variable
             name="holder"

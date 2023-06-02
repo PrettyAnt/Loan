@@ -29,4 +29,5 @@
     <string name="title_cus_mine">我的</string>
     <string name="title_user_business">业务办理</string>
     <string name="title_user_query">业务查询</string>
+    <string name="desc_current_status">当前状态 :</string>
 </resources>

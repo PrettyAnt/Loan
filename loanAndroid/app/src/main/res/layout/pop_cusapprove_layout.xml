@@ -5,7 +5,7 @@
     <data>
         <variable
             name="taskModel"
-            type="com.prettyant.loan.model.bean.TaskModel" />
+            type="com.prettyant.loan.data.bean.TaskModel" />
 
         <variable
             name="popHolderViewModel"

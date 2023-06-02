@@ -5,7 +5,7 @@
     <data>
         <variable
             name="businessType"
-            type="com.prettyant.loan.model.bean.BusinessTypeModel" />
+            type="com.prettyant.loan.data.bean.BusinessTypeModel" />
         <variable
             name="holder"
             type="com.prettyant.loan.ui.main.holder.CommonHolder" />

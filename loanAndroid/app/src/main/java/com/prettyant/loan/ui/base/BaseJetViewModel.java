@@ -23,10 +23,16 @@ import com.prettyant.loan.cons.ContantFields;
 public abstract class BaseJetViewModel extends AndroidViewModel implements DefaultLifecycleObserver {
     protected Context context;
     private MutableLiveData<String> waterMark;
+    protected MutableLiveData<String> title;
 
     public BaseJetViewModel(@NonNull Application application) {
         super(application);
         this.context = application;
+        title = new MutableLiveData<>();
+    }
+
+    public MutableLiveData<String> getTitle() {
+        return title;
     }
 
     //fixme  基类里引用该字段报错??

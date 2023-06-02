@@ -11,13 +11,11 @@ import android.view.WindowManager;
 import android.widget.PopupWindow;
 
 import androidx.databinding.DataBindingUtil;
-import androidx.lifecycle.Observer;
 
 import com.prettyant.loan.BR;
 import com.prettyant.loan.R;
+import com.prettyant.loan.data.bean.TaskModel;
 import com.prettyant.loan.databinding.PopCusapproveLayoutBinding;
-import com.prettyant.loan.model.bean.Response;
-import com.prettyant.loan.model.bean.TaskModel;
 import com.prettyant.loan.ui.main.fragment.FragmentTabCusCurrentTask;
 
 /**

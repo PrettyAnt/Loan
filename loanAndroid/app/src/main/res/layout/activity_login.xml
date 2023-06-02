@@ -18,9 +18,6 @@
         android:background="#00FDFDFE"
         tools:context="com.prettyant.loan.ui.login.LoginActivity">
 
-        <include
-            layout="@layout/common_title_bar"
-            android:visibility="gone" />
 
         <ImageView
             android:layout_gravity="center_horizontal"

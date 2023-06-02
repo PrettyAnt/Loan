@@ -25,7 +25,7 @@
     <!--已完成页面-->
     <fragment
         android:id="@+id/nav_cus_finished"
-        android:name="com.prettyant.loan.ui.main.fragment.FragmentTabCusFinishedTask1"
+        android:name="com.prettyant.loan.ui.main.fragment.FragmentTabCusFinishedTask"
         android:label="@string/title_cus_finished"
         tools:layout="@layout/fragment_layout_finishedtask" />
     <!--当前任务的页面-->

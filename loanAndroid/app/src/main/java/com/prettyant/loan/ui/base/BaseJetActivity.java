@@ -68,6 +68,14 @@ public abstract class BaseJetActivity<DB extends ViewDataBinding,VM extends Base
         }
     }
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if (viewModel != null) {
+            getLifecycle().removeObserver(viewModel);
+        }
+    }
+
     /**
      * 初始化水印
      */

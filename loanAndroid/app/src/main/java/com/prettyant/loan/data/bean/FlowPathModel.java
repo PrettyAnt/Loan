@@ -1,4 +1,4 @@
-package com.prettyant.loan.model.bean;
+package com.prettyant.loan.data.bean;
 
 public class FlowPathModel {
     private String progressInstanceId;//业务编号

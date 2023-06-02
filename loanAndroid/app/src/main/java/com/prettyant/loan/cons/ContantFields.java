@@ -9,6 +9,7 @@ package com.prettyant.loan.cons;
  * describle :
  */
 public class ContantFields {
+    public static final String ACTIVITY_LOGIN = "/main/loginactivity";
     public static final String ACTIVITY_MAIN = "/main/mainactivity";
     public static final String ACTIVITY_DETAIL = "/detail/detailactivity";
     public static final String GROUP_MAIN = "group_main";
