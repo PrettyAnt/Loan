@@ -1,131 +1,151 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:orientation="vertical"
-    android:background="#00FDFDFE"
-    tools:context="com.prettyant.loan.ui.login.LoginActivity">
-    <include layout="@layout/common_title_bar"
-        android:visibility="gone"/>
-    <ImageView
-        android:layout_gravity="center_horizontal"
-        android:layout_marginTop="100dp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:src="@drawable/icon_logo"/>
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+        <variable
+            name="vm"
+            type="com.prettyant.loan.ui.login.LoginViewModel" />
+<!--        <variable-->
+<!--            name="click"-->
+<!--            type="com.prettyant.loan.ui.login.LoginActivity.ProxyClick" />-->
+    </data>
+
     <LinearLayout
-        android:id="@+id/email_login_form"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:orientation="vertical"
-        android:layout_marginTop="30dp"
-        android:paddingStart="24dp"
-        android:paddingEnd="24dp"
-        android:paddingTop="22dp">
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:orientation="horizontal">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="用户名"
-                android:textColor="@color/colorBlack"
-                android:visibility="gone"
-                android:textSize="20sp" />
-
-            <EditText
-                android:id="@+id/account"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@drawable/log_input"
-                android:hint="@string/prompt_account"
-                android:maxLength="11"
-                android:paddingTop="8dp"
-                android:paddingBottom="8dp"
-                android:paddingStart="12dp"
-                android:singleLine="true"
-                android:textColor="@color/colorBlack"
-                android:drawableStart="@drawable/person_blue_common"
-                android:drawablePadding="8dp"
-                android:textSize="16sp" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_marginTop="12dp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:orientation="horizontal">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="密    码"
-                android:visibility="gone"
-                android:textColor="@color/colorBlack"
-                android:textSize="20sp" />
-
-            <EditText
-                android:id="@+id/password"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="@string/prompt_password"
-                android:inputType="textPassword"
-                android:background="@drawable/log_input"
-                android:paddingTop="8dp"
-                android:paddingBottom="8dp"
-                android:paddingStart="12dp"
-                android:drawableStart="@drawable/code_blue_common"
-                android:drawablePadding="8dp"
-                android:maxLines="1"
-                android:singleLine="true"
-                android:textSize="16sp" />
-        </LinearLayout>
-        <LinearLayout
-            android:layout_marginTop="12dp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-            <CheckBox
-                android:id="@+id/cb_remember"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textColor="@color/colorBlack"
-                android:text="记住密码"/>
-        </LinearLayout>
+        android:background="#00FDFDFE"
+        tools:context="com.prettyant.loan.ui.login.LoginActivity">
 
 
-
-        <Button
-            android:id="@+id/login"
-            android:layout_width="match_parent"
-            android:layout_height="45dp"
-            android:layout_marginTop="16dp"
-            android:background="@drawable/common_btn_selector"
-            android:text="@string/action_sign_in"
-            android:textColor="@color/white"
-            android:textSize="18sp" />
-
-    </LinearLayout>
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
-        <TextView
-            android:id="@+id/tv_envri"
-            android:visibility="gone"
+        <ImageView
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="100dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="测试环境"
-            android:layout_alignParentEnd="true"
-            android:layout_marginEnd="40dp"
-            android:layout_marginTop="20dp"/>
-    </RelativeLayout>
-</LinearLayout>
+            android:src="@drawable/icon_logo" />
+
+        <LinearLayout
+            android:id="@+id/email_login_form"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginTop="30dp"
+            android:paddingStart="24dp"
+            android:paddingEnd="24dp"
+            android:paddingTop="22dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="用户名"
+                    android:textColor="@color/colorBlack"
+                    android:visibility="gone"
+                    android:textSize="20sp" />
+
+                <EditText
+                    android:id="@+id/et_account"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/log_input"
+                    android:hint="@string/prompt_account"
+                    android:maxLength="11"
+                    android:paddingTop="8dp"
+                    android:paddingBottom="8dp"
+                    android:paddingStart="12dp"
+                    android:singleLine="true"
+                    android:text="@={vm.account}"
+                    android:textColor="@color/colorBlack"
+                    android:drawableStart="@drawable/person_blue_common"
+                    android:drawablePadding="8dp"
+                    android:textSize="16sp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_marginTop="12dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="密    码"
+                    android:visibility="gone"
+                    android:textColor="@color/colorBlack"
+                    android:textSize="20sp" />
+
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/prompt_password"
+                    android:inputType="textPassword"
+                    android:background="@drawable/log_input"
+                    android:paddingTop="8dp"
+                    android:paddingBottom="8dp"
+                    android:paddingStart="12dp"
+                    android:drawableStart="@drawable/code_blue_common"
+                    android:drawablePadding="8dp"
+                    android:maxLines="1"
+                    android:text="@={vm.pwd}"
+                    android:singleLine="true"
+                    android:textSize="16sp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_marginTop="12dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <CheckBox
+                    android:id="@+id/cb_remember"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:checked="@={vm.isChecked}"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/colorBlack"
+                    android:text="记住密码" />
+            </LinearLayout>
+
+
+            <Button
+                android:id="@+id/login"
+                android:layout_width="match_parent"
+                android:layout_height="45dp"
+                android:layout_marginTop="16dp"
+                android:background="@drawable/common_btn_selector"
+                android:text="@{vm.loginOrRegist}"
+                android:textColor="@color/white"
+                android:onClick="@{()->vm.requestLogin()}"
+                android:textSize="18sp" />
+<!--            android:onClick="@{()->click.requestLogin()}"-->
+        </LinearLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/tv_envri"
+                android:visibility="gone"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="测试环境"
+                android:layout_alignParentEnd="true"
+                android:layout_marginEnd="40dp"
+                android:layout_marginTop="20dp" />
+        </RelativeLayout>
+    </LinearLayout>
+</layout>

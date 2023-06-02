@@ -14,9 +14,11 @@ import android.widget.PopupWindow;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.prettyant.loan.BR;
 import com.prettyant.loan.R;
-import com.prettyant.loan.model.bean.BusinessTypeModel;
-import com.prettyant.loan.view.pop.adapter.BusinessTypeAdapter;
+import com.prettyant.loan.imp.ItemClickListener;
+import com.prettyant.loan.data.bean.BusinessTypeModel;
+import com.prettyant.loan.ui.main.adapter.CommonAdapter;
 
 import java.util.ArrayList;
 
@@ -32,7 +34,7 @@ public class BusinessTypePopWindow {
     private static BusinessTypePopWindow                 INSTANCE;
     private        PopupWindow                           popupWindow;
     private        Activity                              activity;
-    private        BusinessTypeAdapter.ItemClickListener itemClickCallBack;
+    private        ItemClickListener itemClickCallBack;
     private        ArrayList<BusinessTypeModel>          businessTypeModels;
 
 
@@ -64,7 +66,7 @@ public class BusinessTypePopWindow {
      *      
      */
     @SuppressLint("WrongConstant")
-    public void showBusinessPop(View view, Activity activity, ArrayList<BusinessTypeModel> businessTypeModels, BusinessTypeAdapter.ItemClickListener itemClickCallBack) {
+    public void showBusinessPop(View view, Activity activity, ArrayList<BusinessTypeModel> businessTypeModels, ItemClickListener itemClickCallBack) {
         this.businessTypeModels = businessTypeModels;
         this.activity = activity;
         float backgroundAlpha = 0.5f;
@@ -118,9 +120,13 @@ public class BusinessTypePopWindow {
         RecyclerView        recyclerView        = inflate.findViewById(R.id.rv_business);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(activity, RecyclerView.VERTICAL, false);
         recyclerView.setLayoutManager(linearLayoutManager);
-        BusinessTypeAdapter businessTypeAdapter = new BusinessTypeAdapter(activity, businessTypeModels);
-        recyclerView.setAdapter(businessTypeAdapter);
-        businessTypeAdapter.setItemClickCallBack(itemClickCallBack);
+        CommonAdapter<BusinessTypeModel> businessTypeModelCommonAdapter = new CommonAdapter<>(businessTypeModels, R.layout.item_business_type, BR.businessType, BR.holder);
+
+        recyclerView.setAdapter(businessTypeModelCommonAdapter);
+        businessTypeModelCommonAdapter.setItemClickListener((view, position) -> {
+            itemClickCallBack.onItemClickListener(view,position);
+            popupWindow.dismiss();
+        });
     }
 
     /**

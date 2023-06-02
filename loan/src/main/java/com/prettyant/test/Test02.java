@@ -17,11 +17,10 @@ import java.util.List;
 
 @Service
 public class Test02 {
-    @Autowired
-    private BusinessInfoDao businessInfoDao;
     private ArrayList<String> data = new ArrayList<>();
     private int pageSize = 10;
     private int index = 2;
+
     @Test
     public void testAdd() {
         for (int i = 0; i < 21; i++) {
@@ -42,13 +41,39 @@ public class Test02 {
 
     @Test
     public void testEnum() {
-//        System.out.println("Varis.pass.getStatus() = " + Varis.pass.getStatus());
-//        System.out.println("Varis.pass.name() = " + Varis.pass.name());
-        System.out.println("name = " + Varis.pass.name()+"\n");
-        System.out.println("status = " + Varis.pass.getStatus()+"\n");
+        System.out.println("name = " + Varis.pass.name() + "\n");
+        System.out.println("status = " + Varis.pass.getStatus() + "\n");
         Varis[] values = Varis.values();
         for (Varis varis : values) {
-            System.out.println("varis.getStatus() = " + varis.getStatus()+"   ---  "+varis.name());
+            System.out.println("varis.getStatus() = " + varis.getStatus() + "   ---  " + varis.name());
         }
+    }
+
+    /**
+     * 放松以下 ^-^
+     * 获取1~100内的质数
+     */
+    @Test
+    public void getNum() {
+        for (int i = 2; i < 100; i++) {
+            if (!canDivide(i)) {
+                System.out.println("i = " + i);
+            }
+        }
+    }
+
+    /**
+     * 判断i是否为质数
+     * @param i
+     * @return
+     */
+    public boolean canDivide(int i) {
+        for (int j = 2; j < i + 1; j++) {
+            //判断余数是否为0
+            if (i % j == 0 && i != j) {
+                return true;
+            }
+        }
+        return false;
     }
 }

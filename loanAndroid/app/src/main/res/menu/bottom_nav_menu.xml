@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+
+    <item
+        android:id="@+id/nav_cus_finished"
+        android:icon="@drawable/tab1_1_selector"
+        android:title="@string/title_cus_finished" />
+
+    <item
+        android:id="@+id/nav_cus_task"
+        android:icon="@drawable/tab2_1_selector"
+        android:title="@string/title_cus_task" />
+
+    <item
+        android:id="@+id/nav_mine"
+        android:icon="@drawable/tab3_selector"
+        android:title="@string/title_cus_mine" />
+
+    <item
+        android:id="@+id/nav_user_business"
+        android:icon="@drawable/tab1_selector"
+        android:title="@string/title_user_business" />
+    <item
+        android:id="@+id/nav_user_query"
+        android:icon="@drawable/tab2_selector"
+        android:title="@string/title_user_query" />
+
+</menu>

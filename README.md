@@ -1,4 +1,14 @@
+#### 项目介绍
+
+- loan为java后端项目
+- loan为移动端android 项目，其中loanAndroid 目前有2个主要分支 mvp、mvvm,后续会新增kotlin版本
+  - mvp分支的android项目即mvp架构模式实现的
+  - mvvm分支的android项目即使用google Jetpack mvvm架构模式实现的
+
+
+
 ## 背景
+
 - 目前用户办理贷款业务只支持线下办理，业务量比较大、审批流程比较耗时、成本比较高
 - 投产后用户可以通过平台进行线上办理贷款业务。审核人员可以线上按流程及时审核业务
 

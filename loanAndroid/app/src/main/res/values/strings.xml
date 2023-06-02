@@ -24,4 +24,11 @@
     <string name="xlistview_footer_hint_ready">松开加载更多</string>
     <string name="xlistview_footer_hint_loading">正在加载</string>
     <string name="xlistview_footer_hint_complete">已经全部加载完毕</string>
+    <string name="title_cus_finished">已完成</string>
+    <string name="title_cus_task">待处理</string>
+    <string name="title_cus_mine">我的</string>
+    <string name="title_user_business">业务办理</string>
+    <string name="title_user_query">业务查询</string>
+    <string name="desc_current_status">当前状态 :</string>
+    <string name="desc_current_null">无</string>
 </resources>

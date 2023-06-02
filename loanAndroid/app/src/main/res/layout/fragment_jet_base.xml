@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:id="@+id/rl_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/common_title_bg"
+            android:visibility="visible">
+
+            <ImageView
+                android:id="@+id/iv_back"
+                android:layout_width="wrap_content"
+                android:layout_height="20dp"
+                android:layout_centerVertical="true"
+                android:layout_marginStart="12dp"
+                android:adjustViewBounds="true"
+                android:scaleType="fitCenter"
+                android:visibility="invisible"
+                android:src="@drawable/icon_back" />
+
+            <TextView
+                android:id="@+id/tv_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:padding="14dp"
+                android:text="测试标题"
+                android:textColor="@color/white"
+                android:textSize="18sp" />
+
+        </RelativeLayout>
+
+        <FrameLayout
+            android:id="@+id/fl_content_container"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            tools:context=".base.fragment.BaseFragment" />
+    </LinearLayout>
+</layout>

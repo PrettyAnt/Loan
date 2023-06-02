@@ -13,29 +13,30 @@ import androidx.fragment.app.FragmentManager;
 import androidx.viewpager2.adapter.FragmentStateAdapter;
 
 import com.prettyant.loan.R;
+import com.prettyant.loan.data.bean.FragmentEnum;
 
+/**
+ * 导航适配器
+ */
 public class FragmentMainTabAdapter extends FragmentStateAdapter {
     private Context mContext;
+    private FragmentEnum[] fragmentEnums;
 
-    private Fragment[] mFragments = null;
-    private String[] mFragmentTitles =null;
-    private Integer[] mFragmentIcons = null;
-
-    public FragmentMainTabAdapter(FragmentActivity context, FragmentManager fm, Fragment[] fragments, String[] titles, Integer[] icons) {
+    public FragmentMainTabAdapter(FragmentActivity context) {
         super(context);
         this.mContext = context;
-        mFragments = fragments;
-        mFragmentTitles = titles;
-        mFragmentIcons = icons;
     }
 
+    public void setFragmentEnums(FragmentEnum[] fragmentEnums) {
+        this.fragmentEnums = fragmentEnums;
+    }
 
     public View getTabView(int position) {
         View tab = LayoutInflater.from(mContext).inflate(R.layout.item_main_tab, null);
         TextView tabText = (TextView) tab.findViewById(R.id.tv_title);
         ImageView tabImage = (ImageView) tab.findViewById(R.id.iv_icon);
-        tabText.setText(mFragmentTitles[position]);
-        tabImage.setBackgroundResource(mFragmentIcons[position]);
+        tabText.setText(fragmentEnums[position].getTabName());
+        tabImage.setBackgroundResource(fragmentEnums[position].getTabIcon());
         if (position == 0) {
             tab.setSelected(true);
         }
@@ -45,11 +46,11 @@ public class FragmentMainTabAdapter extends FragmentStateAdapter {
     @NonNull
     @Override
     public Fragment createFragment(int position) {
-        return mFragments[position];
+        return fragmentEnums[position].getFragment();
     }
 
     @Override
     public int getItemCount() {
-        return mFragments.length;
+        return fragmentEnums.length;
     }
 }

@@ -1,108 +1,88 @@
 package com.prettyant.loan.ui.main;
 
-import android.os.Bundle;
 import android.text.TextUtils;
 
-import com.alibaba.android.arouter.facade.annotation.Route;
-import com.alibaba.android.arouter.launcher.ARouter;
-import com.google.android.material.tabs.TabLayout;
-
-import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.viewpager2.widget.ViewPager2;
 
+import com.alibaba.android.arouter.facade.annotation.Route;
 import com.google.android.material.tabs.TabLayoutMediator;
 import com.prettyant.loan.R;
 import com.prettyant.loan.cons.ContantFields;
-import com.prettyant.loan.ui.base.BaseActivity;
+import com.prettyant.loan.data.bean.FragmentEnum;
+import com.prettyant.loan.databinding.ActivityMainBinding;
+import com.prettyant.loan.ui.base.BaseJetActivity;
 import com.prettyant.loan.ui.main.adapter.FragmentMainTabAdapter;
-import com.prettyant.loan.ui.main.fragment.FragmentTabBusiness;
-import com.prettyant.loan.ui.main.fragment.FragmentTabBusinessQuery;
-import com.prettyant.loan.ui.main.fragment.FragmentTabCusCurrentTask;
-import com.prettyant.loan.ui.main.fragment.FragmentTabCusFinishedTask;
-import com.prettyant.loan.ui.main.fragment.FragmentTabMy;
 
 
 /**
  * 主页
  */
 @Route(path = ContantFields.ACTIVITY_MAIN)
-public class MainActivity extends BaseActivity {
+public class MainActivity extends BaseJetActivity<ActivityMainBinding, MainViewModel> {
 
-    ViewPager2 viewPager2;
-    TabLayout  tabLayout;
-
-    private String[]               mTabTitles;
-    private Integer[]              mTabIcons;
-    private Fragment[]             mFragments;
-    private FragmentMainTabAdapter fragmentMainTabAdapter;
-    private TabLayoutMediator mediator;
-
-
-    @Override
-    public int getContentView() {
-        return R.layout.activity_main;
-    }
-
-
-    @Override
-    public void initView() {
-        viewPager2 = (ViewPager2) $(R.id.vp_content);
-        tabLayout = (TabLayout) $(R.id.tabl_navigation);
-    }
-
-    @Override
-    public void initClick() {
-
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-    }
-
-    @Override
-    public void initData() {
-        if (TextUtils.equals(ContantFields.username, "zhangsan") || TextUtils.equals(ContantFields.username, "lisi")) {
-            mTabTitles = new String[]{"已完成", "待处理", "我的"};
-            mTabIcons = new Integer[]{R.drawable.tab1_1_selector, R.drawable.tab2_1_selector, R.drawable.tab3_selector};
-            mFragments = new Fragment[]{new FragmentTabCusFinishedTask(), new FragmentTabCusCurrentTask(), new FragmentTabMy()};
-        } else {
-            mTabTitles = new String[]{"业务办理", "业务查询", "我的"};
-            mTabIcons = new Integer[]{R.drawable.tab1_selector, R.drawable.tab2_selector, R.drawable.tab3_selector};
-            mFragments = new Fragment[]{new FragmentTabBusiness(), new FragmentTabBusinessQuery(), new FragmentTabMy()};
-        }
-        setupViewPager();
-        setupTabLayout();
-        tabLayout.getTabAt(0).select();
-    }
-
-    //设置tab并绑定
-    private void setupTabLayout() {
-        mediator = new TabLayoutMediator(tabLayout, viewPager2, (tab, position) -> tab.setCustomView(fragmentMainTabAdapter.getTabView(position)));
-        mediator.attach();
-    }
-
-    /**
-     * 设置viewPager监听
-     */
-    private void setupViewPager() {
-        fragmentMainTabAdapter = new FragmentMainTabAdapter(this, getSupportFragmentManager(), mFragments, mTabTitles, mTabIcons);
-        viewPager2.setAdapter(fragmentMainTabAdapter);
-        viewPager2.setOffscreenPageLimit(ViewPager2.OFFSCREEN_PAGE_LIMIT_DEFAULT);
-        viewPager2.registerOnPageChangeCallback(callback);
-    }
-
-    private ViewPager2.OnPageChangeCallback callback = new ViewPager2.OnPageChangeCallback() {
+    private ViewPager2.OnPageChangeCallback callback=new ViewPager2.OnPageChangeCallback() {
         @Override
         public void onPageSelected(int position) {
             super.onPageSelected(position);
         }
     };
+    private TabLayoutMediator tabLayoutMediator;
+
+    @Override
+    protected int getLayoutResId() {
+        return R.layout.activity_main;
+    }
+
+    @Override
+    protected void initViewModel() {
+        viewModel = new ViewModelProvider(this).get(MainViewModel.class);
+    }
+
+    @Override
+    protected void bindViewModel() {
+        dataBinding.setVm(viewModel);
+    }
+
+    @Override
+    protected void init() {
+        initView();
+    }
+
+    private void initView() {
+        /**
+         * google官方导航，不支持左右滑动?
+         */
+//        NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
+//        BottomNavigationView navViewBottom = dataBinding.navViewBottom;
+//        navViewBottom.getMenu().findItem(R.id.nav_mine).setVisible(false);
+//        NavigationUI.setupWithNavController(navViewBottom,navController);
+
+        //设置viewpager监听
+        FragmentMainTabAdapter fragmentMainTabAdapter = new FragmentMainTabAdapter(this);
+        FragmentEnum[] fragmentEnums = null;
+        if (TextUtils.equals(ContantFields.username, "zhangsan") || TextUtils.equals(ContantFields.username, "lisi")) {
+            fragmentEnums = new FragmentEnum[]{FragmentEnum.fragfinishtask, FragmentEnum.fragcurrenttask, FragmentEnum.fragmy};
+        } else {
+            fragmentEnums = new FragmentEnum[]{FragmentEnum.fragbusiness, FragmentEnum.fragbusinessquery, FragmentEnum.fragmy};
+        }
+        fragmentMainTabAdapter.setFragmentEnums(fragmentEnums);
+        dataBinding.vpContent.setAdapter(fragmentMainTabAdapter);
+        dataBinding.vpContent.setOffscreenPageLimit(ViewPager2.OFFSCREEN_PAGE_LIMIT_DEFAULT);
+        dataBinding.vpContent.registerOnPageChangeCallback(callback);
+        //设置tab并绑定
+        tabLayoutMediator = new TabLayoutMediator(dataBinding.tablNavigation, dataBinding.vpContent, (tab, position) -> {
+            tab.setCustomView(fragmentMainTabAdapter.getTabView(position));
+        });
+        tabLayoutMediator.attach();
+        //设置默认选中tab
+        dataBinding.tablNavigation.getTabAt(0).select();
+    }
 
     @Override
     protected void onDestroy() {
-        mediator.detach();
-        viewPager2.unregisterOnPageChangeCallback(callback);
+        tabLayoutMediator.detach();
+        dataBinding.vpContent.unregisterOnPageChangeCallback(callback);
         super.onDestroy();
     }
 }

@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mobile_navigation"
+    app:startDestination="@+id/nav_user_business">
+    <!--用户业务办理页面-->
+    <fragment
+        android:id="@+id/nav_user_business"
+        android:name="com.prettyant.loan.ui.main.fragment.FragmentTabBusiness"
+        android:label="@string/title_user_business"
+        tools:layout="@layout/fragment_business" />
+    <!--用户业务查询页面-->
+    <fragment
+        android:id="@+id/nav_user_query"
+        android:name="com.prettyant.loan.ui.main.fragment.FragmentTabBusinessQuery"
+        android:label="@string/title_user_query"
+        tools:layout="@layout/fragment_business_query" />
+    <!--我的页面-->
+    <fragment
+        android:id="@+id/nav_mine"
+        android:name="com.prettyant.loan.ui.main.fragment.FragmentTabMy"
+        android:label="@string/title_cus_mine"
+        tools:layout="@layout/fragment_my" />
+    <!--已完成页面-->
+    <fragment
+        android:id="@+id/nav_cus_finished"
+        android:name="com.prettyant.loan.ui.main.fragment.FragmentTabCusFinishedTask"
+        android:label="@string/title_cus_finished"
+        tools:layout="@layout/fragment_layout_finishedtask" />
+    <!--当前任务的页面-->
+    <fragment
+        android:id="@+id/nav_cus_task"
+        android:name="com.prettyant.loan.ui.main.fragment.FragmentTabCusCurrentTask"
+        android:label="@string/title_cus_task"
+        tools:layout="@layout/fragment_layout_currenttask" />
+
+</navigation>

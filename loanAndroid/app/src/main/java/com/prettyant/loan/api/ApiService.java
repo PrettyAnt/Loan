@@ -1,10 +1,10 @@
 package com.prettyant.loan.api;
 
-import com.prettyant.loan.model.bean.BusinessInfo;
-import com.prettyant.loan.model.bean.BusinessInfosResponse;
-import com.prettyant.loan.model.bean.FlowPathModelResponse;
-import com.prettyant.loan.model.bean.Response;
-import com.prettyant.loan.model.bean.TaskResponse;
+import com.prettyant.loan.data.bean.BusinessInfo;
+import com.prettyant.loan.data.bean.BusinessInfosResponse;
+import com.prettyant.loan.data.bean.FlowPathModelResponse;
+import com.prettyant.loan.data.bean.Response;
+import com.prettyant.loan.data.bean.TaskResponse;
 
 import okhttp3.RequestBody;
 import retrofit2.http.Body;
@@ -20,7 +20,7 @@ import rx.Observable;
  */
 public interface ApiService {
 
-    String API_ROOT = "http://192.168.40.62:8100/";
+    String API_ROOT = "http://192.168.159.62:8100/";
 
     /**
      * 登录

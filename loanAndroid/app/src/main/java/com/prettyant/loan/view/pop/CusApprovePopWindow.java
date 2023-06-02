@@ -2,25 +2,21 @@ package com.prettyant.loan.view.pop;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
-import android.app.AlertDialog;
 import android.graphics.drawable.BitmapDrawable;
-import android.os.Handler;
-import android.os.Looper;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.PopupWindow;
-import android.widget.RadioButton;
-import android.widget.RadioGroup;
 
+import androidx.databinding.DataBindingUtil;
+
+import com.prettyant.loan.BR;
 import com.prettyant.loan.R;
-import com.prettyant.loan.view.CommDialog;
+import com.prettyant.loan.data.bean.TaskModel;
+import com.prettyant.loan.databinding.PopCusapproveLayoutBinding;
+import com.prettyant.loan.ui.main.fragment.FragmentTabCusCurrentTask;
 
 /**
  * @author ChenYu
@@ -30,18 +26,15 @@ import com.prettyant.loan.view.CommDialog;
  * PackageName : com.example.serviceonline.View.pop
  * describle :操作员审核弹窗
  */
-public class CusApprovePopWindow implements View.OnClickListener {
+public class CusApprovePopWindow {
     private static CusApprovePopWindow INSTANCE;
-    private        PopupWindow         popupWindow;
-    private        Activity            activity;
-    private        EditText            et_cus_message;
-    private        Button              btn_submit;
-    private        SubmitClickListener submitClickListener;
-    private        RadioButton         rb_approve;
-    private        RadioButton         rb_unapprove;
-    private ImageView iv_close;
-    private boolean needJudge;
-    private LinearLayout ll_judge;
+    private PopDismissCallBack popDismissCallBack;
+    private PopupWindow popupWindow;
+    private Activity activity;
+    private TaskModel taskModel;
+    private PopCusapproveLayoutBinding popCusapproveLayoutBinding;
+    private CusApprovePopWindowViewModel popHolderViewModel;
+    private FragmentTabCusCurrentTask fragmentTabCusCurrentTask;
 
 
     public static CusApprovePopWindow getInstance() {
@@ -72,22 +65,20 @@ public class CusApprovePopWindow implements View.OnClickListener {
      *      
      */
     @SuppressLint("WrongConstant")
-    public void approvePop(View view, Activity activity, SubmitClickListener submitClickListener, boolean needJudge) {
+    public void approvePop(FragmentTabCusCurrentTask fragmentTabCusCurrentTask, View view, Activity activity, TaskModel taskModel, PopDismissCallBack popDismissCallBack) {
+        this.fragmentTabCusCurrentTask = fragmentTabCusCurrentTask;
         this.activity = activity;
-        this.submitClickListener = submitClickListener;
-        this.needJudge = needJudge;
+        this.taskModel = taskModel;
+        this.popDismissCallBack = popDismissCallBack;
         float backgroundAlpha = 0.5f;
         if (popupWindow != null && popupWindow.isShowing()) {
             popupWindow.dismiss();
             popupWindow = null;
 //            return;
         }
-//        LayoutInflater inflater    = (LayoutInflater) activity.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        View           contentView = LayoutInflater.from(activity).inflate(R.layout.pop_cusapprove_layout, null);
-        initView(activity, contentView);
+        popCusapproveLayoutBinding = DataBindingUtil.inflate(LayoutInflater.from(activity), R.layout.pop_cusapprove_layout, null, false);
 
-
-        popupWindow = new PopupWindow(contentView,
+        popupWindow = new PopupWindow(popCusapproveLayoutBinding.getRoot(),
                 ViewGroup.LayoutParams.MATCH_PARENT,
                 ViewGroup.LayoutParams.MATCH_PARENT);
         //点击空白处时，隐藏掉pop窗口
@@ -107,32 +98,29 @@ public class CusApprovePopWindow implements View.OnClickListener {
             @Override
             public void onDismiss() {
                 setBackgroundAlpha(1.0f);
-
+                popDismissCallBack.onPopDismissCallBack();
             }
         });
+        init();
         initData();
     }
 
+
     private void initData() {
-        ll_judge.setVisibility(needJudge?View.VISIBLE:View.GONE);
+        popHolderViewModel.getShowRadioGorup().setValue(taskModel.isNeedJudge());
     }
 
-    private Handler handler = new Handler(Looper.getMainLooper());
     /**
      * 初始化pop页面的数据
-     *
-     * @param activity
-     * @param inflate
      */
-    private void initView(Activity activity, View inflate) {
-        iv_close = inflate.findViewById(R.id.iv_close);
-        et_cus_message = inflate.findViewById(R.id.et_cus_message);
-        ll_judge = inflate.findViewById(R.id.ll_judge);
-        rb_approve = inflate.findViewById(R.id.rb_approve);
-        rb_unapprove = inflate.findViewById(R.id.rb_unapprove);
-        btn_submit = inflate.findViewById(R.id.btn_submit);
-        btn_submit.setOnClickListener(this);
-        iv_close.setOnClickListener(this);
+    private void init() {
+        popCusapproveLayoutBinding.setVariable(BR.taskInfo, taskModel);
+        popHolderViewModel = new CusApprovePopWindowViewModel(activity.getApplication());
+        popCusapproveLayoutBinding.setPopHolderViewModel(popHolderViewModel);
+        popHolderViewModel.setActivity(activity);
+        popHolderViewModel.setPop(popupWindow);
+        popHolderViewModel.setTaskModel(taskModel);
+        popHolderViewModel.getResponseMutableLiveData().observe(fragmentTabCusCurrentTask, response -> popupWindow.dismiss());
     }
 
     /**
@@ -147,49 +135,9 @@ public class CusApprovePopWindow implements View.OnClickListener {
         activity.getWindow().setAttributes(lp);
     }
 
-
-    /**
-     * 隐藏popupWindow
-     */
-    public void hideBottomPop() {
-        if (popupWindow == null) {
-            return;
-        }
-        popupWindow.dismiss();
+    public interface PopDismissCallBack {
+       public void onPopDismissCallBack();
     }
 
-    @Override
-    public void onClick(View view) {
-        if (view.getId() == R.id.btn_submit) {
-            String message = et_cus_message.getText().toString();
-            if (!needJudge) {
-                submitClickListener.onSubmitClickListener(message,true);
-                hideBottomPop();
-                return;
-            }
-            if (!rb_approve.isChecked() && !rb_unapprove.isChecked()) {
-                CommDialog.getInstance().commDialog(activity, "温馨提示", "亲,请选择是否通过", null, "确定", new CommDialog.DialogClickListener() {
-                    @Override
-                    public void onCancleClickListener(View view, AlertDialog dialog) {
-                        dialog.dismiss();
-                    }
 
-                    @Override
-                    public void onSureClickListener(View view, AlertDialog dialog) {
-                        dialog.dismiss();
-                    }
-                });
-                return;
-            }
-            boolean approve = rb_approve.isChecked();
-            submitClickListener.onSubmitClickListener(message,approve);
-            hideBottomPop();
-        } else if (view.getId() == R.id.iv_close) {
-            hideBottomPop();
-        }
-    }
-
-    public interface SubmitClickListener {
-        void onSubmitClickListener(String message, boolean approve);
-    }
 }
